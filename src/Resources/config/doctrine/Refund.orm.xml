@@ -15,5 +15,13 @@
         <field name="amount" column="amount" type="integer" />
         <field name="refundedUnitId" column="refunded_unit_id" type="integer" nullable="true" />
         <field name="type" column="type" type="sylius_refund_refund_type" />
+
+        <one-to-one field="refundType" target-entity="Sylius\RefundPlugin\Entity\RefundTypeInterface">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+            <join-column name="refund_type_id" referenced-column-name="id" nullable="true" />
+        </one-to-one>
     </mapped-superclass>
 </doctrine-mapping>

@@ -14,6 +14,9 @@ final class AdminMainMenuListener
         /** @var ItemInterface $salesMenu */
         $salesMenu = $event->getMenu()->getChild('sales');
 
+        /** @var ItemInterface $configurationMenu */
+        $configurationMenu = $event->getMenu()->getChild('configuration');
+
         $salesMenu
             ->addChild('credit_memos', [
                 'route' => 'sylius_refund_admin_credit_memo_index',
@@ -21,5 +24,14 @@ final class AdminMainMenuListener
             ->setLabel('sylius_refund.ui.credit_memos')
             ->setLabelAttribute('icon', 'inbox')
         ;
+
+        $configurationMenu
+            ->addChild('refund_type', [
+                'route' => 'sylius_refund_admin_refund_type_index',
+            ])
+            ->setLabel('sylius_refund.ui.refund_type')
+            ->setLabelAttribute('icon', 'inbox')
+        ;
+
     }
 }

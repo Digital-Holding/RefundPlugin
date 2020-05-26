@@ -18,6 +18,15 @@ sylius_resource:
         sylius_refund.refund_payment:
             classes:
                 model: Sylius\RefundPlugin\Entity\RefundPayment
+        sylius_refund.refund_type:
+            classes:
+                model: Sylius\RefundPlugin\Entity\RefundType
+                interface: Sylius\RefundPlugin\Entity\RefundTypeInterface
+                repository: Sylius\RefundPlugin\Repository\RefundTypeRepository
+            translation:
+                classes:
+                    model: Sylius\RefundPlugin\Entity\RefundTypeTranslation
+                    interface: Sylius\RefundPlugin\Entity\RefundTypeTranslationInterface
 
 sylius_mailer:
     emails:
@@ -133,6 +142,43 @@ sylius_grid:
                 channel:
                     type: credit_memo_channel
                     label: sylius.ui.channel
+
+        sylius_refund_refund_type:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: Sylius\RefundPlugin\Entity\RefundType
+                    repository:
+                        method: createListQueryBuilder
+                        arguments: ["%locale%"]
+            sorting:
+                code: asc
+            limits: [10, 25, 50]
+            fields:
+                code:
+                    type: string
+                    label: sylius.ui.code
+                    sortable: ~
+            filters:
+                search:
+                    type: string
+                    label: sylius.ui.search
+                    options:
+                        fields: [code]
+                enabled:
+                    type: boolean
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+                bulk:
+                    delete:
+                        type: delete
 
 doctrine:
     dbal:
