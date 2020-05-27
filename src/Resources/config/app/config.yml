@@ -18,15 +18,17 @@ sylius_resource:
         sylius_refund.refund_payment:
             classes:
                 model: Sylius\RefundPlugin\Entity\RefundPayment
-        sylius_refund.refund_type:
+        sylius_refund.application_reason:
             classes:
-                model: Sylius\RefundPlugin\Entity\RefundType
-                interface: Sylius\RefundPlugin\Entity\RefundTypeInterface
-                repository: Sylius\RefundPlugin\Repository\RefundTypeRepository
+                model: Sylius\RefundPlugin\Entity\ApplicationReason
+                interface: Sylius\RefundPlugin\Entity\ApplicationReasonInterface
+                repository: Sylius\RefundPlugin\Repository\ApplicationReasonRepository
+                form: Sylius\RefundPlugin\Form\Type\ApplicationReasonType
             translation:
                 classes:
-                    model: Sylius\RefundPlugin\Entity\RefundTypeTranslation
-                    interface: Sylius\RefundPlugin\Entity\RefundTypeTranslationInterface
+                    model: Sylius\RefundPlugin\Entity\ApplicationReasonTranslation
+                    interface: Sylius\RefundPlugin\Entity\ApplicationReasonTranslationInterface
+                    form: Sylius\RefundPlugin\Form\Type\ApplicationReasonTranslationType
 
 sylius_mailer:
     emails:
@@ -143,11 +145,11 @@ sylius_grid:
                     type: credit_memo_channel
                     label: sylius.ui.channel
 
-        sylius_refund_refund_type:
+        sylius_refund_application_reason:
             driver:
                 name: doctrine/orm
                 options:
-                    class: Sylius\RefundPlugin\Entity\RefundType
+                    class: Sylius\RefundPlugin\Entity\ApplicationReason
                     repository:
                         method: createListQueryBuilder
                         arguments: ["%locale%"]

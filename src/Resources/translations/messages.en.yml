@@ -1,5 +1,16 @@
 sylius_refund:
+    form:
+        application_reason_type:
+            refund_type: Refund type
+            return_type: Return Type
+        application_reason:
+            name: Application reason name
+            type: Application reason type
     ui:
+        application_reason: Application reason
+        application_reasons: Application reasons
+        manage_application_reason: Manager application reason
+        new_application_reason: New application reason
         buyer: Buyer
         clear_refunds: Clear all
         new: New

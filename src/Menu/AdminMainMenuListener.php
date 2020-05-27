@@ -26,11 +26,11 @@ final class AdminMainMenuListener
         ;
 
         $configurationMenu
-            ->addChild('refund_type', [
-                'route' => 'sylius_refund_admin_refund_type_index',
+            ->addChild('application_reason', [
+                'route' => 'sylius_refund_admin_application_reason_index',
             ])
-            ->setLabel('sylius_refund.ui.refund_type')
-            ->setLabelAttribute('icon', 'inbox')
+            ->setLabel('sylius_refund.ui.application_reason')
+            ->setLabelAttribute('icon', 'wpforms')
         ;
 
     }

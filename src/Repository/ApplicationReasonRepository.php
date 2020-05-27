@@ -7,7 +7,7 @@ namespace Sylius\RefundPlugin\Repository;
 use Doctrine\ORM\QueryBuilder;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 
-class RefundTypeRepository extends EntityRepository implements RefundTypeRepositoryInterface
+class ApplicationReasonRepository extends EntityRepository implements ApplicationReasonRepositoryInterface
 {
     public function createListQueryBuilder(string $localeCode): QueryBuilder
     {

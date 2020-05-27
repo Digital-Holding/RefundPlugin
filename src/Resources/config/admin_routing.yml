@@ -74,17 +74,20 @@ sylius_refund_admin_credit_memo_send:
     defaults:
         _controller: Sylius\RefundPlugin\Action\Admin\SendCreditMemoAction
 
-sylius_refund_refund_type:
+sylius_refund_application_reason:
     resource: |
-        alias: sylius_refund.refund_type
+        alias: sylius_refund.application_reason
         section: admin
         templates: SyliusAdminBundle:Crud
         except: ['show']
-        grid: sylius_refund_refund_type
+        redirect: index
+        grid: sylius_refund_application_reason
         permission: true
         vars:
             all:
-                subheader: sylius_refund.ui.manage_refund_type
+                subheader: sylius_refund.ui.manage_application_reason
+                templates:
+                    form: "@SyliusRefundPlugin/Admin/ApplicationReason/_form.html.twig"
             index:
                 icon: inbox
     type: sylius.resource

@@ -7,7 +7,7 @@ namespace Sylius\RefundPlugin\Entity;
 use Sylius\Component\Resource\Model\TranslatableTrait;
 use Sylius\Component\Resource\Model\TranslationInterface;
 
-class RefundType implements RefundTypeInterface
+class ApplicationReason implements ApplicationReasonInterface
 {
     use TranslatableTrait {
         __construct as private initializeTranslationsCollection;
@@ -19,6 +19,9 @@ class RefundType implements RefundTypeInterface
 
     /** @var string */
     protected $code;
+
+    /** @var string */
+    protected $type;
 
     public function __construct()
     {
@@ -51,11 +54,11 @@ class RefundType implements RefundTypeInterface
     }
 
     /**
-     * @return TranslationInterface|RefundTypeTranslationInterface
+     * @return TranslationInterface|ApplicationReasonTranslationInterface
      */
     public function getTranslation(?string $locale = null): TranslationInterface
     {
-        /** @var RefundTypeTranslationInterface $translation */
+        /** @var ApplicationReasonTranslationInterface $translation */
         $translation = $this->doGetTranslation($locale);
 
         return $translation;
@@ -63,6 +66,24 @@ class RefundType implements RefundTypeInterface
 
     protected function createTranslation(): TranslationInterface
     {
-        return new RefundTypeTranslation();
+        return new ApplicationReasonTranslation();
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): void
+    {
+        $this->type = $type;
+    }
+
+    public static function getAllTypes(): array
+    {
+        return [
+            ApplicationReasonInterface::REFUND_TYPE,
+            ApplicationReasonInterface::RETURN_TYPE
+        ];
     }
 }

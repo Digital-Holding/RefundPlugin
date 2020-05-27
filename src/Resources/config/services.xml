@@ -132,5 +132,15 @@
         <service id="Sylius\RefundPlugin\Grid\Filter\ChannelFilter">
             <tag name="sylius.grid_filter" type="credit_memo_channel" form_type="Sylius\RefundPlugin\Form\Type\ChannelFilterType" />
         </service>
+
+        <service id="sylius_refund_plugin.form.type.application_reason" class="Sylius\RefundPlugin\Form\Type\ApplicationReasonType">
+            <argument>%sylius_refund.model.application_reason.class%</argument>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="sylius_refund_plugin.form.type.application_reason_translation" class="Sylius\RefundPlugin\Form\Type\ApplicationReasonTranslationType">
+            <argument>%sylius_refund.model.application_reason_translation.class%</argument>
+            <tag name="form.type"/>
+        </service>
     </services>
 </container>

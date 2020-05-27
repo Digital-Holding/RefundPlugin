@@ -16,8 +16,4 @@ interface RefundInterface extends ResourceInterface
     public function getRefundedUnitId(): int;
 
     public function getType(): RefundType;
-
-    public function getRefundType(): ?RefundTypeInterface;
-
-    public function setRefundType(?RefundTypeInterface $refundType): void;
 }

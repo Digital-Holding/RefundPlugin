@@ -6,7 +6,7 @@ namespace Sylius\RefundPlugin\Entity;
 
 use Sylius\Component\Resource\Model\AbstractTranslation;
 
-class RefundTypeTranslation extends AbstractTranslation implements RefundTypeTranslationInterface
+class ApplicationReasonTranslation extends AbstractTranslation implements ApplicationReasonTranslationInterface
 {
     /** @var int */
     protected $id;

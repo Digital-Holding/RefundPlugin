@@ -21,11 +21,8 @@ class Refund implements RefundInterface
     /** @var int */
     protected $refundedUnitId;
 
-    /** @var RefundType */
+    /** @var ApplicationReason */
     protected $type;
-
-    /** @var RefundTypeInterface|null */
-    protected $refundType;
 
     public function __construct(string $orderNumber, int $amount, int $refundedUnitId, RefundType $type)
     {
@@ -58,18 +55,5 @@ class Refund implements RefundInterface
     public function getType(): RefundType
     {
         return $this->type;
-    }
-
-    /**
-     * @return RefundTypeInterface|null
-     */
-    public function getRefundType(): ?RefundTypeInterface
-    {
-        return $this->refundType;
-    }
-
-    public function setRefundType(?RefundTypeInterface $refundType): void
-    {
-        $this->refundType = $refundType;
     }
 }
