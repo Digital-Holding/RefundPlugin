@@ -29,6 +29,10 @@ sylius_resource:
                     model: Sylius\RefundPlugin\Entity\ApplicationReasonTranslation
                     interface: Sylius\RefundPlugin\Entity\ApplicationReasonTranslationInterface
                     form: Sylius\RefundPlugin\Form\Type\ApplicationReasonTranslationType
+        sylius_refund.refund_request:
+            classes:
+                model: Sylius\RefundPlugin\Entity\RefundRequest
+                interface: Sylius\RefundPlugin\Entity\RefundRequestInterface
 
 sylius_mailer:
     emails:
@@ -144,7 +148,6 @@ sylius_grid:
                 channel:
                     type: credit_memo_channel
                     label: sylius.ui.channel
-
         sylius_refund_application_reason:
             driver:
                 name: doctrine/orm
@@ -181,6 +184,38 @@ sylius_grid:
                 bulk:
                     delete:
                         type: delete
+        sylius_refund_refund_request:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: Sylius\RefundPlugin\Entity\RefundRequest
+            sorting:
+                createdAt: desc
+            fields:
+                state:
+                    type: twig
+                    label: sylius.ui.state
+                    sortable: ~
+                    options:
+                        template: "@SyliusUi/Grid/Field/state.html.twig"
+                channel:
+                    type: twig
+                    label: sylius.ui.channel
+                    options:
+                        template: "@SyliusRefundPlugin/Order/Grid/Field/channel.html.twig"
+                createdAt:
+                    type: datetime
+                    label: sylius_refund.ui.created_at
+                    options:
+                        format: 'Y-m-d H:i:s'
+
+            filters:
+                createdAt:
+                    type: date
+                    label: sylius_refund.ui.created_at
+                channel:
+                    type: credit_memo_channel
+                    label: sylius.ui.channel
 
 doctrine:
     dbal:

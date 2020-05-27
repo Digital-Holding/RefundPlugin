@@ -91,3 +91,18 @@ sylius_refund_application_reason:
             index:
                 icon: inbox
     type: sylius.resource
+
+sylius_refund_refund_request:
+    resource: |
+        alias: sylius_refund.refund_request
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        only: ['index']
+        grid: sylius_refund_refund_request
+        permission: true
+        vars:
+            all:
+                subheader: sylius_refund.ui.manage_refund_requests
+            index:
+                icon: inbox
+    type: sylius.resource

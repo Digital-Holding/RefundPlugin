@@ -25,6 +25,14 @@ final class AdminMainMenuListener
             ->setLabelAttribute('icon', 'inbox')
         ;
 
+        $salesMenu
+            ->addChild('refund_requests', [
+                'route' => 'sylius_refund_admin_refund_request_index',
+            ])
+            ->setLabel('sylius_refund.ui.refund_requests')
+            ->setLabelAttribute('icon', 'handshake')
+        ;
+
         $configurationMenu
             ->addChild('application_reason', [
                 'route' => 'sylius_refund_admin_application_reason_index',

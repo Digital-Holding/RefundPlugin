@@ -7,6 +7,10 @@ sylius_refund:
             name: Application reason name
             type: Application reason type
     ui:
+        created_at: Created At
+        refund_request: Refund request
+        refund_requests: Refund requests
+        manage_refund_requests: Manage refund requests
         application_reason: Application reason
         application_reasons: Application reasons
         manage_application_reason: Manager application reason
