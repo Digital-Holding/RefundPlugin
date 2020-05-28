@@ -142,5 +142,9 @@
             <argument>%sylius_refund.model.application_reason_translation.class%</argument>
             <tag name="form.type"/>
         </service>
+
+        <service id="winzou\Bundle\StateMachineBundle\Command\winzouStateMachineDebugCommand">
+            <tag name="console.command" />
+        </service>
     </services>
 </container>

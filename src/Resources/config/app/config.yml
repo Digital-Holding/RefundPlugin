@@ -67,6 +67,34 @@ winzou_state_machine:
             complete:
                 from: [new]
                 to: completed
+    sylius_refund_refund_request:
+        class: "%sylius_refund.model.refund_request.class%"
+        property_path: state
+        graph: sylius_refund_refund_request
+        state_machine_class: "%sylius.state_machine.class%"
+        states:
+            new: ~
+            cancelled: ~
+            accepted: ~
+            pending_item_return: ~
+            package_received: ~
+            completed: ~
+        transitions:
+            accept:
+                from: [new]
+                to: accepted
+            cancel:
+                from: [new]
+                to: cancelled
+            send_item:
+                from: [accepted]
+                to: pending_item_return
+            receive_package:
+                from: [pending_item_return]
+                to: package_received
+            complete:
+                from: [accepted, package_received]
+                to: completed
 
 sylius_grid:
     templates:
