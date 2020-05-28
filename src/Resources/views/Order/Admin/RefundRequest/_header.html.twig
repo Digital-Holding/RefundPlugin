@@ -1,0 +1,20 @@
+<h1 class="ui header">
+    <i class="circular inbox icon"></i>
+    <div class="content">
+        {{ 'sylius_refund.ui.refund_request'|trans }} <span id="refund-request-number">{{ refund_request.order.number }}</span>
+        <div class="sub header">
+            <div class="ui horizontal divided list">
+                <div class="item">
+                    {{ 'sylius_refund.ui.created_for_order'|trans }}: #{{ refund_request.order.number }}
+                </div>
+                <div class="item">
+                    {{ 'sylius.ui.created_at'|trans }}: {{ refund_request.createdAt|date('d-m-Y') }}
+                </div>
+                <div class="item">
+                    {{ 'sylius_refund.ui.created_from'|trans }}
+                    {% include '@SyliusAdmin/Common/_channel.html.twig' with {'channel': refund_request.channel} %}
+                </div>
+            </div>
+        </div>
+    </div>
+</h1>

@@ -216,6 +216,18 @@ sylius_grid:
                 channel:
                     type: credit_memo_channel
                     label: sylius.ui.channel
+            actions:
+                item:
+                    show:
+                        type: show
+                        label: sylius.ui.show
+                        icon: eye
+                        options:
+                            link:
+                                route: sylius_refund_admin_refund_request_show
+                                parameters:
+                                    id: resource.id
+                                    orderNumber: resource.order.number
 
 doctrine:
     dbal:

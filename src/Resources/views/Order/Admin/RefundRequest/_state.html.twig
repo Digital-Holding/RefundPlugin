@@ -1,0 +1,17 @@
+<div class="ui top attached styled header">
+    <div class="item">
+        <div class="content">
+            {{ 'sylius.ui.state'|trans }}
+        </div>
+        <div class="right floated content">
+            {% include '@SyliusRefundPlugin/Order/Label/RefundRequestState/' ~ refund_request.state ~ '.html.twig' with { 'value': 'sylius.ui.' ~ refund_request.state} %}
+        </div>
+    </div>
+</div>
+<div class="ui attached segment" id="refund-request-state">
+    <strong>{{ 'sylius.ui.order'|trans }}:</strong><br/>
+    #{{ refund_request.order.number }}<br/>
+
+    <strong>{{ 'sylius.ui.created_at'|trans }}:</strong><br/>
+    {{ refund_request.createdAt|date('d-m-Y H:i:s') }}
+</div>

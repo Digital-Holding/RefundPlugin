@@ -7,6 +7,9 @@ sylius_refund:
             name: Application reason name
             type: Application reason type
     ui:
+        created_for_order: Created for order
+        created_from: Created from
+        refund_request_state: state
         created_at: Created At
         refund_request: Refund request
         refund_requests: Refund requests

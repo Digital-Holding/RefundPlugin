@@ -1,0 +1,56 @@
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
+
+{% block title %}{{ 'sylius_refund.ui.refund_request'|trans ~ ' ' ~ refund_request.order.number }} {{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="ui stackable two column grid">
+        <div class="eight wide column">
+            {% include '@SyliusRefundPlugin/Order/Admin/RefundRequest/_header.html.twig' %}
+            {% include '@SyliusRefundPlugin/Order/Admin/RefundRequest/_breadcrumb.html.twig' %}
+        </div>
+    </div>
+
+    {#        {{ dump() }}#}
+    <div class="ui stackable grid">
+        <div class="twelve wide column">
+            <h4 class="ui attached styled header top ">
+                {{ 'sylius.ui.items'|trans }}
+            </h4>
+            <div class="ui attached segment" id="billing-address">
+                <table class="ui celled compact small table fixed">
+                    <thead>
+                    <tr>
+                        <th class="four wide">{{ 'sylius.ui.product'|trans }}</th>
+                        <th class="four wide sylius-table-column-name">{{ 'sylius.ui.variant'|trans }}</th>
+                        <th class="four wide sylius-table-column-quantity">{{ 'sylius.ui.price'|trans }}</th>
+                        <th class="four wide">{{ 'sylius_refund.ui.refund_request_state'|trans }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if refund.request.lineItem is defined %}
+                        <tr>
+                            <td class="single line line-item-name">
+                                {{ refund_request.lineItem.name }}
+                            </td>
+                            <td class="single line line-item-quantity">
+                                {{ refund_request.lineItem.quantity }}
+                            </td>
+                            <td class="right aligned line-item-unit-net-price">
+                                {{ '%0.2f'|format(refund_request.lineItem.grossValue/100) }}
+                            </td>
+                            <td class="right aligned line-item-net-value">
+                                {% include '@SyliusRefundPlugin/Order/Label/RefundRequestState/' ~ refund_request.state ~ '.html.twig' with { 'value': 'sylius.ui.' ~ refund_request.state} %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="four wide column">
+            {% include '@SyliusRefundPlugin/Order/Admin/RefundRequest/_state.html.twig' %}
+        </div>
+    </div>
+{% endblock %}
