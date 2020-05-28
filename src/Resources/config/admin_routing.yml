@@ -116,13 +116,3 @@ sylius_refund_admin_refund_request_show:
             template: "@SyliusRefundPlugin/Order/Admin/RefundRequest/details.html.twig"
             criteria:
                 id: $id
-#
-#sylius_refund_refund_request_show:
-#    path: /orders/{orderId}/refund-request/{id}
-#    methods: [GET]
-#    defaults:
-#        _controller: sylius.controller.order:showAction
-#        _sylius:
-#            section: admin
-#            permission: true
-#            template: "@SyliusAdmin/Order/show.html.twig"
