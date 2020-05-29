@@ -43,7 +43,10 @@ sylius_mailer:
 framework:
     messenger:
         buses:
-            sylius_refund_plugin.command_bus: ~
+            sylius_refund_plugin.command_bus:
+                middleware:
+                    - doctrine_transaction
+                    - messenger.middleware.dispatch_after_current_bus
             sylius_refund_plugin.event_bus:
                 default_middleware: allow_no_handlers
 

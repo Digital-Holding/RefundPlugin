@@ -26,5 +26,17 @@
             <argument type="service" id="Sylius\RefundPlugin\Sender\CreditMemoEmailSender"/>
             <tag name="messenger.message_handler" />
         </service>
+
+        <service id="Sylius\RefundPlugin\CommandHandler\Api\CreateCustomerRefundRequestHandler" >
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="sylius.repository.order_item_unit"/>
+            <argument type="service" id="Sylius\RefundPlugin\Converter\LineItemsConverterInterface"/>
+            <argument type="service" id="sylius_refund.factory.refund_request"/>
+            <argument type="service" id="sylius_refund.repository.application_reason"/>
+            <argument type="service" id="sylius.context.channel"/>
+            <argument type="service" id="sylius_refund.repository.refund_request"/>
+            <tag name="messenger.message_handler" bus="sylius_refund_plugin.command_bus" />
+        </service>
     </services>
 </container>

@@ -1,2 +1,12 @@
 sylius_refund:
     resource: "@SyliusRefundPlugin/Resources/config/routing.yml"
+
+sylius_refund_shop_api_login:
+    methods: [POST]
+    path: /refund-shop-api/login
+
+sylius_refund_shop_api_customer_refund_request:
+    path: /refund-shop-api/order/{orderId}/item/{orderItemUnitId}/refund-request
+    methods: [POST]
+    defaults:
+        _controller: sylius_refund_plugin.controller.api.create_customer_refund_request_action

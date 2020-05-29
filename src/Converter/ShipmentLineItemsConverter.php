@@ -11,7 +11,7 @@ use Sylius\RefundPlugin\Entity\LineItemInterface;
 use Sylius\RefundPlugin\Model\ShipmentRefund;
 use Webmozart\Assert\Assert;
 
-final class ShipmentLineItemsConverter implements LineItemsConverterInterface
+final class ShipmentLineItemsConverter implements ShipmentLineItemsConverterInterface
 {
     /** @var RepositoryInterface */
     private $adjustmentRepository;

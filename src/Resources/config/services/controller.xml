@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults autowire="false" autoconfigure="false" public="true" />
+
+        <service id="sylius_refund_plugin.controller.api.create_customer_refund_request_action" class="Sylius\RefundPlugin\Controller\Api\CreateCustomerRefundRequestAction">
+            <argument type="service" id="fos_rest.view_handler"/>
+            <argument type="service" id="sylius_refund_plugin.command_bus"/>
+            <argument type="service" id="validator"/>
+        </service>
+    </services>
+</container>

@@ -41,6 +41,36 @@ final class LineItemsConverter implements LineItemsConverterInterface
         return $lineItems;
     }
 
+    public function convertUnit(OrderItemUnitInterface $unit): LineItemInterface
+    {
+        $lineItem = [];
+
+        $lineItem = $this->addLineItem($this->convertOrderItemUnitToLineItem($unit), $lineItem);
+
+        return reset($lineItem);
+    }
+
+    private function convertOrderItemUnitToLineItem(OrderItemUnitInterface $orderItemUnit): LineItemInterface
+    {
+        /** @var OrderItemInterface $orderItem */
+        $orderItem = $orderItemUnit->getOrderItem();
+
+        $grossValue = 0;
+        $taxAmount = 0;
+        $netValue = 0;
+
+        return new LineItem(
+            $orderItem->getProductName(),
+            1,
+            $netValue,
+            $grossValue,
+            $netValue,
+            $grossValue,
+            $taxAmount,
+            $this->taxRateProvider->provide($orderItemUnit)
+        );
+    }
+
     private function convertUnitRefundToLineItem(OrderItemUnitRefund $unitRefund): LineItemInterface
     {
         /** @var OrderItemUnitInterface|null $orderItemUnit */
@@ -52,7 +82,7 @@ final class LineItemsConverter implements LineItemsConverterInterface
         $orderItem = $orderItemUnit->getOrderItem();
 
         $grossValue = $unitRefund->total();
-        $taxAmount = (int) ($grossValue * $orderItemUnit->getTaxTotal() / $orderItemUnit->getTotal());
+        $taxAmount = (int)($grossValue * $orderItemUnit->getTaxTotal() / $orderItemUnit->getTotal());
         $netValue = $grossValue - $taxAmount;
 
         return new LineItem(

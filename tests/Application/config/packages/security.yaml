@@ -2,6 +2,7 @@ parameters:
     sylius.security.admin_regex: "^/admin"
     sylius.security.api_regex: "^/api"
     sylius.security.shop_regex: "^/(?!admin|api/.*|api$|media/.*)[^/]++"
+    sylius_refund_shop_api.security.regex: "^/refund-shop-api"
 
 security:
     providers:
@@ -49,6 +50,21 @@ security:
             fos_oauth: true
             stateless: true
             anonymous: true
+
+        sylius_refund_shop_api:
+            pattern: "%sylius_refund_shop_api.security.regex%"
+            stateless: true
+            anonymous: true
+            provider: sylius_shop_user_provider
+            json_login:
+                check_path: /refund-shop-api/login
+                username_path: email
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
 
         shop:
             switch_user: { role: ROLE_ALLOWED_TO_SWITCH }
@@ -100,3 +116,6 @@ security:
         - { path: "%sylius.security.admin_regex%", role: ROLE_ADMINISTRATION_ACCESS }
         - { path: "%sylius.security.api_regex%/.*", role: ROLE_API_ACCESS }
         - { path: "%sylius.security.shop_regex%/account", role: ROLE_USER }
+
+        - { path: "%sylius_refund_shop_api.security.regex%/.*", role: ROLE_USER }
+        - { path: "%sylius_refund_shop_api.security.regex%/login", role: IS_AUTHENTICATED_ANONYMOUSLY }
