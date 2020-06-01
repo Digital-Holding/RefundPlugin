@@ -13,5 +13,11 @@
 
         <field name="code" column="code" type="string" unique="true" />
         <field name="type" column="type" type="string" nullable="true" />
+
+        <one-to-many field="refundRequests" target-entity="Sylius\RefundPlugin\Entity\RefundRequestInterface" mapped-by="applicationReason" orphan-removal="true">
+            <cascade>
+                <cascade-all />
+            </cascade>
+        </one-to-many>
     </mapped-superclass>
 </doctrine-mapping>

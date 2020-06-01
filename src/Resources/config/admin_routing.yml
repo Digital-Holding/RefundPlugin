@@ -108,7 +108,7 @@ sylius_refund_refund_request:
     type: sylius.resource
 
 sylius_refund_admin_refund_request_show:
-    path: /orders/{orderNumber}/refund-request/{id}
+    path: /orders/{orderId}/refund-request/{id}
     methods: [GET]
     defaults:
         _controller: sylius_refund.controller.refund_request:showAction
@@ -116,3 +116,13 @@ sylius_refund_admin_refund_request_show:
             template: "@SyliusRefundPlugin/Order/Admin/RefundRequest/details.html.twig"
             criteria:
                 id: $id
+
+sylius_refund_admin_refund_request_add_message:
+    path: /orders/{orderId}/refund-request/{refundRequestId}/add-message
+    methods: [PUT]
+    defaults:
+        _controller: sylius_refund.controller.refund_request:addRefundRequestMessage
+        _sylius:
+            section: admin
+            permission: true
+            template: "@SyliusRefundPlugin:Admin/RefundRequestMessage/refundRequestMessage.html.twig"

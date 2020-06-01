@@ -51,5 +51,46 @@
         <div class="four wide column">
             {% include '@SyliusRefundPlugin/Order/Admin/RefundRequest/_state.html.twig' %}
         </div>
+
+        <div class="ui segment">
+            <h4 class="ui dividing header">{{ 'sylius_refund.ui.refund_request_messages'|trans }}</h4>
+            <div class="ui two column grid">
+                {% for request_message in refund_request.messages %}
+                    <div class="two column row">
+                        {% if request_message.adminUser is not null %}
+                        <div class="left floated left aligned column">
+                            <div class="ui message">
+                                <div class="header">
+                                    {{ request_message.adminUser }}
+                                </div>
+                                <div class="ui small message">
+                                    <p>{{ request_message.message }}</p><br>
+                                </div>
+                                <p>{{ request_message.datetime|date("m/d/Y h:i:s") }}</p>
+                            </div>
+                        </div>
+
+                        {% elseif request_message.shopUser is not null %}
+                        <div class="right floated right aligned column">
+                            <div class="ui blue message">
+                                <div class="header">
+                                    {{ request_message.shopUser }}
+                                </div>
+                                <div class="ui small message">
+                                    <p>{{ request_message.message }}</p><br>
+                                </div>
+                                <p>{{ request_message.datetime|date("m/d/Y h:i:s") }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <br>
+            {{ render(controller('sylius_refund.controller.refund_request:addRefundRequestMessage',
+                {'orderId': refund_request.order.id, 'refundRequestId': refund_request.id }
+            )) }}
+        </div>
+
     </div>
 {% endblock %}

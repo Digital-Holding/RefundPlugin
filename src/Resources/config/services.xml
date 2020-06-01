@@ -144,8 +144,38 @@
             <tag name="form.type"/>
         </service>
 
+        <service id="sylius_refund_plugin.form.type.refund_request_message" class="Sylius\RefundPlugin\Form\Type\RefundRequestMessageType">
+            <argument>%sylius_refund.model.refund_request_message.class%</argument>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="sylius_refund_plugin.form.type.refund_request_message_file" class="Sylius\RefundPlugin\Form\Type\RefundRequestMessageFileType">
+            <argument>%sylius_refund.model.refund_request_message_file.class%</argument>
+            <tag name="form.type"/>
+        </service>
+
         <service id="winzou\Bundle\StateMachineBundle\Command\winzouStateMachineDebugCommand">
             <tag name="console.command" />
+        </service>
+
+        <service id="sylius_refund_plugin.listener.refund_request_message_file_upload.filesystem" class="Gaufrette\Filesystem" >
+            <argument>sylius_refund_plugin_media</argument>
+            <factory service="knp_gaufrette.filesystem_map" method="get" />
+        </service>
+
+        <service id="sylius_refund_plugin.service.refund_request_message_file_service" class="Sylius\RefundPlugin\Service\RefundRequestMessageFileService" public="true" >
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+            <argument type="service" id="sylius_refund_plugin.listener.refund_request_message_file_upload.filesystem" />
+            <argument type="string">sylius_refund_plugin_media</argument>
+        </service>
+
+        <service id="dh.sylius_refund_plugin.uploader.refund_request_message_file_uploader" class="Sylius\RefundPlugin\Uploader\RefundRequestMessageFileUploader" public="true" >
+            <argument type="service" id="sylius_refund_plugin.service.refund_request_message_file_service" />
+        </service>
+
+        <service id="sylius_refund_plugin.listener.refund_request_message_file_upload" class="Sylius\RefundPlugin\Listener\RefundRequestMessageFileUploadListener">
+            <argument type="service" id="dh.sylius_refund_plugin.uploader.refund_request_message_file_uploader" />
+            <tag name="kernel.event_listener" event="dh_refund_plugin_refund_request_message" method="uploadRefundRequestMessageFiles" />
         </service>
     </services>
 </container>

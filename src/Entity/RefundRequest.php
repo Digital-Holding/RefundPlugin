@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Channel\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 
@@ -27,12 +29,16 @@ class RefundRequest implements RefundRequestInterface
     /** @var string */
     protected $state = RefundRequestInterface::STATE_NEW;
 
-    /** @var \DateTimeImmutable */
+    /** @var \DateTime */
     protected $createdAt;
+
+    /** @var Collection|RefundRequestMessageInterface[] */
+    protected $messages;
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,13 +96,39 @@ class RefundRequest implements RefundRequestInterface
         $this->state = $state;
     }
 
-    public function getCreatedAt(): \DateTimeImmutable
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): void
+    public function setCreatedAt(\DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function hasMessage(RefundRequestMessageInterface $message): bool
+    {
+        return $this->messages->contains($message);
+    }
+
+    public function addMessage(RefundRequestMessageInterface $message): void
+    {
+        if (!$this->hasMessage($message)) {
+            $message->setRefundRequest($this);
+            $this->messages->add($message);
+        }
+    }
+
+    public function removeOrderNote(RefundRequestMessageInterface $message): void
+    {
+        if ($this->hasMessage($message)) {
+            $this->messages->removeElement($message);
+            $message->setRefundRequest(null);
+        }
     }
 }

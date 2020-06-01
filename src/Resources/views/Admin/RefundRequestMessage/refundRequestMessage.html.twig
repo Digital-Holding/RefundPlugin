@@ -1,0 +1,28 @@
+{% import '@SyliusUi/Macro/headers.html.twig' as headers %}
+{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
+
+{% form_theme form '@SyliusAdmin/Form/theme.html.twig' %}
+
+{{ form_start(form, {'action': path('sylius_refund_admin_refund_request_add_message', {'orderId': resource.order.id, 'refundRequestId': resource.id }), 'attr': {'class': 'ui loadable form', 'novalidate': 'novalidate'}}) }}
+<div class="ui segment">
+    <input type="hidden" name="_method" value="PUT" />
+
+    {{ form_row(form.message) }}
+    <div class="ui segment">
+        {{ form_row(form.refundRequestMessageFiles) }}
+    </div>
+
+    {{ sonata_block_render_event('sylius.admin.order.update.form', {'resource': resource}) }}
+
+    {{ form_row(form._token) }}
+
+    <div class="ui basic segment">
+        <div class="ui buttons">
+            <button class="ui labeled icon primary button" type="submit" id="sylius_save_changes_button"><i class="arrow alternate circle up icon"></i> {{ 'sylius.ui.send'|trans }}</button>
+        </div>
+    </div>
+</div>
+{{ form_end(form, {'render_rest': false}) }}
+
+{{ sonata_block_render_event('sylius.admin.order.update.after_content', {'resource': resource}) }}
+

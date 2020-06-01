@@ -6,7 +6,10 @@ sylius_refund:
         application_reason:
             name: Application reason name
             type: Application reason type
+        refund_request_message:
+            message_files: Files
     ui:
+        refund_request_messages: Messages
         created_for_order: Created for order
         created_from: Created from
         refund_request_state: state

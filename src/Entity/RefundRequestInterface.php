@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Channel\Model\ChannelAwareInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
@@ -38,7 +39,15 @@ interface RefundRequestInterface extends ResourceInterface, ChannelAwareInterfac
 
     public function setState(string $state): void;
 
-    public function getCreatedAt(): \DateTimeImmutable;
+    public function getCreatedAt(): \DateTime;
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): void;
+    public function setCreatedAt(\DateTime $createdAt): void;
+
+    public function getMessages(): Collection;
+
+    public function hasMessage(RefundRequestMessageInterface $message): bool;
+
+    public function addMessage(RefundRequestMessageInterface $message): void;
+
+    public function removeOrderNote(RefundRequestMessageInterface $message): void;
 }

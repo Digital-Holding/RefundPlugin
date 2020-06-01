@@ -33,6 +33,21 @@ sylius_resource:
             classes:
                 model: Sylius\RefundPlugin\Entity\RefundRequest
                 interface: Sylius\RefundPlugin\Entity\RefundRequestInterface
+                controller: Sylius\RefundPlugin\Controller\RefundRequestController
+        sylius_refund.refund_request_message:
+            classes:
+                model: Sylius\RefundPlugin\Entity\RefundRequestMessage
+                interface: Sylius\RefundPlugin\Entity\RefundRequestMessageInterface
+                form: Sylius\RefundPlugin\Form\Type\RefundRequestMessageType
+        sylius_refund.refund_request_message_file:
+            classes:
+                model: Sylius\RefundPlugin\Entity\RefundRequestMessageFile
+                interface: Sylius\RefundPlugin\Entity\RefundRequestMessageFileInterface
+                form: Sylius\RefundPlugin\Form\Type\RefundRequestMessageFileType
+        sylius_refund.refund_request_unreaded_message:
+            classes:
+                model: Sylius\RefundPlugin\Entity\UnreadedRefundRequestMessage
+                interface: Sylius\RefundPlugin\Entity\UnreadedRefundRequestMessageInterface
 
 sylius_mailer:
     emails:
@@ -258,7 +273,7 @@ sylius_grid:
                                 route: sylius_refund_admin_refund_request_show
                                 parameters:
                                     id: resource.id
-                                    orderNumber: resource.order.number
+                                    orderId: resource.order.id
 
 doctrine:
     dbal:

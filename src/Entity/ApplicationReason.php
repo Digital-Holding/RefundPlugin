@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Resource\Model\TranslatableTrait;
 use Sylius\Component\Resource\Model\TranslationInterface;
 
@@ -23,9 +25,13 @@ class ApplicationReason implements ApplicationReasonInterface
     /** @var string */
     protected $type;
 
+    /** @var Collection|RefundRequestInterface[] */
+    protected $refundRequests;
+
     public function __construct()
     {
         $this->initializeTranslationsCollection();
+        $this->refundRequests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,5 +91,10 @@ class ApplicationReason implements ApplicationReasonInterface
             ApplicationReasonInterface::REFUND_TYPE,
             ApplicationReasonInterface::RETURN_TYPE
         ];
+    }
+
+    public function getRefundRequests(): Collection
+    {
+        return $this->refundRequests;
     }
 }

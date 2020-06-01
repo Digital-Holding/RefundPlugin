@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Resource\Model\CodeAwareInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Model\TranslatableInterface;
@@ -24,4 +25,6 @@ interface ApplicationReasonInterface extends
     public function getType(): ?string;
 
     public function setType(string $type): void;
+
+    public function getRefundRequests(): Collection;
 }

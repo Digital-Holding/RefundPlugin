@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                            http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+>
+    <mapped-superclass name="Sylius\RefundPlugin\Entity\RefundRequestMessageFile" table="sylius_refund_refund_request_message_file">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="hash" column="hash" type="string" />
+        <field name="fileName" column="file_name" type="string" />
+        <field name="mimeType" column="mime_type" type="string" />
+        <field name="createdAt" column="created_at" type="datetime"/>
+
+        <many-to-one field="refundRequestMessage" target-entity="Sylius\RefundPlugin\Entity\RefundRequestMessageInterface" inversed-by="refundRequestMessageFiles">
+            <join-column name="refund_request_message_id" referenced-column-name="id" nullable="false" />
+        </many-to-one>
+    </mapped-superclass>
+</doctrine-mapping>
