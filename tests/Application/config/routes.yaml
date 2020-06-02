@@ -10,3 +10,9 @@ sylius_refund_shop_api_customer_refund_request:
     methods: [POST]
     defaults:
         _controller: sylius_refund_plugin.controller.api.create_customer_refund_request_action
+
+sylius_refund_shop_api_show_application_reasons_by_type:
+    path: /refund-shop-api/applications-reasons/by-type/{type}
+    methods: [GET]
+    defaults:
+        _controller: sylius_refund_plugin.controller.api.show_application_reason_by_type

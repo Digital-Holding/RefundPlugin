@@ -177,5 +177,7 @@
             <argument type="service" id="dh.sylius_refund_plugin.uploader.refund_request_message_file_uploader" />
             <tag name="kernel.event_listener" event="dh_refund_plugin_refund_request_message" method="uploadRefundRequestMessageFiles" />
         </service>
+
+        <service id="sylius_refund.view_factory.application_reason" class="Sylius\RefundPlugin\Factory\Api\ApplicationReasonViewFactory" />
     </services>
 </container>

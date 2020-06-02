@@ -9,5 +9,13 @@
             <argument type="service" id="sylius_refund_plugin.command_bus"/>
             <argument type="service" id="validator"/>
         </service>
+
+        <service id="sylius_refund_plugin.controller.api.show_application_reason_by_type" class="Sylius\RefundPlugin\Controller\Api\ShowApplicationReasonsByType">
+            <argument type="service" id="fos_rest.view_handler"/>
+            <argument type="service" id="sylius_refund_plugin.command_bus"/>
+            <argument type="service" id="validator"/>
+            <argument type="service" id="sylius_refund.repository.application_reason"/>
+            <argument type="service" id="sylius_refund.view_factory.application_reason"/>
+        </service>
     </services>
 </container>

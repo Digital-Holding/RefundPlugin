@@ -17,4 +17,14 @@ class ApplicationReasonRepository extends EntityRepository implements Applicatio
             ->setParameter('localeCode', $localeCode)
             ;
     }
+
+    public function findByType(string $type): array
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.type = :type')
+            ->setParameter('type', $type)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

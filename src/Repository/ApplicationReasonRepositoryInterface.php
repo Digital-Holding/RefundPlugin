@@ -10,4 +10,6 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 interface ApplicationReasonRepositoryInterface extends RepositoryInterface
 {
     public function createListQueryBuilder(string $localeCode): QueryBuilder;
+
+    public function findByType(string $type): array;
 }

@@ -1,0 +1,5 @@
+sylius_refund_shop_api_show_application_reasons_by_type:
+    path: /applications-reasons/by-type/{type}
+    methods: [GET]
+    defaults:
+        _controller: sylius_refund_plugin.controller.api.show_application_reason_by_type
