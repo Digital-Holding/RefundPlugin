@@ -47,44 +47,41 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-        <div class="four wide column">
-            {% include '@SyliusRefundPlugin/Order/Admin/RefundRequest/_state.html.twig' %}
-        </div>
 
-        <div class="ui segment">
-            <h4 class="ui dividing header">{{ 'sylius_refund.ui.refund_request_messages'|trans }}</h4>
-            <div class="ui two column grid">
-                {% for request_message in refund_request.messages %}
-                    <div class="two column row">
-                        {% if request_message.adminUser is not null %}
-                        <div class="left floated left aligned column">
-                            <div class="ui message">
-                                <div class="header">
-                                    {{ request_message.adminUser }}
+            <div class="ui segment">
+                <h4 class="ui dividing header">{{ 'sylius_refund.ui.refund_request_messages'|trans }}</h4>
+                <div class="ui two column grid">
+                    {% for request_message in refund_request.messages %}
+                        <div class="two column row">
+                            {% if request_message.adminUser is not null %}
+                                <div class="left floated left aligned column">
+                                    <div class="ui message">
+                                        <div class="header">
+                                            {{ request_message.adminUser }}
+                                        </div>
+                                        <div class="ui small message">
+                                            <p>{{ request_message.message }}</p><br>
+                                        </div>
+                                        <p>{{ request_message.datetime|date("m/d/Y h:i:s") }}</p>
+                                    </div>
                                 </div>
-                                <div class="ui small message">
-                                    <p>{{ request_message.message }}</p><br>
-                                </div>
-                                <p>{{ request_message.datetime|date("m/d/Y h:i:s") }}</p>
-                            </div>
-                        </div>
 
-                        {% elseif request_message.shopUser is not null %}
-                        <div class="right floated right aligned column">
-                            <div class="ui blue message">
-                                <div class="header">
-                                    {{ request_message.shopUser }}
+                            {% elseif request_message.shopUser is not null %}
+                                <div class="right floated right aligned column">
+                                    <div class="ui blue message">
+                                        <div class="header">
+                                            {{ request_message.shopUser }}
+                                        </div>
+                                        <div class="ui small message">
+                                            <p>{{ request_message.message }}</p><br>
+                                        </div>
+                                        <p>{{ request_message.datetime|date("m/d/Y h:i:s") }}</p>
+                                    </div>
                                 </div>
-                                <div class="ui small message">
-                                    <p>{{ request_message.message }}</p><br>
-                                </div>
-                                <p>{{ request_message.datetime|date("m/d/Y h:i:s") }}</p>
-                            </div>
+                            {% endif %}
                         </div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
             <br>
             {{ render(controller('sylius_refund.controller.refund_request:addRefundRequestMessage',
@@ -92,5 +89,76 @@
             )) }}
         </div>
 
+        <div class="four wide column">
+            {% include '@SyliusRefundPlugin/Order/Admin/RefundRequest/_state.html.twig' %}
+
+            <br>
+            <div class="ui top attached styled header">
+                <div class="item">
+                    <div class="content">
+                        {{ 'sylius.ui.action'|trans }}
+                    </div>
+                </div>
+            </div>
+            <div class="ui attached segment" id="refund-request-state">
+                <div class="ui two column grid">
+                    <div class="two column row">
+                        {% if refund_request.state == 'new' %}
+                        <div class="column">
+                            <form action="{{ path('sylius_refund_admin_refund_request_accept', {'orderId': refund_request.order.id, 'refundRequestId': refund_request.id}) }}"
+                                  method="post">
+                                <input type="hidden" name="_method" value="PUT"/>
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token(refund_request.id) }}"/>
+                                <button type="submit" class="ui right floated basic green button">
+                                    <i class="icon check"></i> {{ 'sylius.ui.accept'|trans }}
+                                </button>
+                            </form>
+                        </div>
+                        <div class="column">
+                            <form action="{{ path('sylius_refund_admin_refund_request_cancel', {'orderId': refund_request.order.id, 'refundRequestId': refund_request.id}) }}"
+                                  method="post">
+                                <input type="hidden" name="_method" value="PUT"/>
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token(refund_request.id) }}"/>
+                                <button type="submit" class="ui right floated basic orange button">
+                                    <i class="icon ban"></i> {{ 'sylius.ui.cancel'|trans }}
+                                </button>
+                            </form>
+                        </div>
+                        <div class="column">
+                                        {% elseif refund_request.state == 'accepted' %}
+                            <form action="{{ path('sylius_refund_admin_refund_request_send_item', {'orderId': refund_request.order.id, 'refundRequestId': refund_request.id}) }}"
+                                  method="post">
+                                <input type="hidden" name="_method" value="PUT"/>
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token(refund_request.id) }}"/>
+                                <button type="submit" class="ui right floated basic grey button">
+                                    <i class="icon shipping fast"></i> {{ 'sylius_refund.ui.send_item'|trans }}
+                                </button>
+                            </form>
+                        </div>
+                                    {% elseif refund_request.state == 'pending_item_return' %}
+                        <form action="{{ path('sylius_refund_admin_refund_request_receive_package', {'orderId': refund_request.order.id, 'refundRequestId': refund_request.id}) }}"
+                              method="post">
+                            <input type="hidden" name="_method" value="PUT"/>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token(refund_request.id) }}"/>
+                            <button type="submit" class="ui right floated basic grey button">
+                                <i class="icon box"></i> {{ 'sylius_refund.ui.receive_package'|trans }}
+                            </button>
+                        </form>
+                        <div class="column">
+                                        {% elseif refund_request.state == 'accepted' or refund_request.state == 'package_received' %}
+                            <form action="{{ path('sylius_refund_admin_refund_request_complete', {'orderId': refund_request.order.id, 'refundRequestId': refund_request.id}) }}"
+                                  method="post">
+                                <input type="hidden" name="_method" value="PUT"/>
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token(refund_request.id) }}"/>
+                                <button type="submit" class="ui right floated basic green button">
+                                    <i class="icon check"></i> {{ 'sylius.ui.complete'|trans }}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

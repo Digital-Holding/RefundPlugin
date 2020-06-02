@@ -9,6 +9,8 @@ sylius_refund:
         refund_request_message:
             message_files: Files
     ui:
+        send_item: Send item
+        receive_package: Receive package
         refund_request_messages: Messages
         created_for_order: Created for order
         created_from: Created from

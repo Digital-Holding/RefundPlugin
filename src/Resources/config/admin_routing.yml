@@ -126,3 +126,63 @@ sylius_refund_admin_refund_request_add_message:
             section: admin
             permission: true
             template: "@SyliusRefundPlugin:Admin/RefundRequestMessage/refundRequestMessage.html.twig"
+
+sylius_refund_admin_refund_request_accept:
+    path: /orders/{orderId}/refund-request/{refundRequestId}/accept
+    methods: [PUT]
+    defaults:
+        _controller: sylius_refund.controller.refund_request:changeState
+        _sylius:
+            permission: true
+            state_machine:
+                graph: sylius_refund_refund_request
+                transition: accept
+            redirect: referer
+
+sylius_refund_admin_refund_request_cancel:
+    path: /orders/{orderId}/refund-request/{refundRequestId}/cancel
+    methods: [PUT]
+    defaults:
+        _controller: sylius_refund.controller.refund_request:changeState
+        _sylius:
+            permission: true
+            state_machine:
+                graph: sylius_refund_refund_request
+                transition: cancel
+            redirect: referer
+
+sylius_refund_admin_refund_request_send_item:
+    path: /orders/{orderId}/refund-request/{refundRequestId}/send-item
+    methods: [PUT]
+    defaults:
+        _controller: sylius_refund.controller.refund_request:changeState
+        _sylius:
+            permission: true
+            state_machine:
+                graph: sylius_refund_refund_request
+                transition: send_item
+            redirect: referer
+
+sylius_refund_admin_refund_request_receive_package:
+    path: /orders/{orderId}/refund-request/{refundRequestId}/receive-package
+    methods: [PUT]
+    defaults:
+        _controller: sylius_refund.controller.refund_request:changeState
+        _sylius:
+            permission: true
+            state_machine:
+                graph: sylius_refund_refund_request
+                transition: receive_package
+            redirect: referer
+
+sylius_refund_admin_refund_request_complete:
+    path: /orders/{orderId}/refund-request/{refundRequestId}/complete
+    methods: [PUT]
+    defaults:
+        _controller: sylius_refund.controller.refund_request:changeState
+        _sylius:
+            permission: true
+            state_machine:
+                graph: sylius_refund_refund_request
+                transition: complete
+            redirect: referer
