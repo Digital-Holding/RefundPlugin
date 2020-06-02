@@ -179,5 +179,11 @@
         </service>
 
         <service id="sylius_refund.view_factory.application_reason" class="Sylius\RefundPlugin\Factory\Api\ApplicationReasonViewFactory" />
+
+        <service id="sylius_refund.view_factory.refund_request_message" class="Sylius\RefundPlugin\Factory\Api\RefundRequestMessageViewFactory" />
+
+        <service id="sylius_refund.view_factory.refund_request" class="Sylius\RefundPlugin\Factory\Api\RefundRequestViewFactory" >
+            <argument type="service" id="sylius_refund.view_factory.refund_request_message" />
+        </service>
     </services>
 </container>

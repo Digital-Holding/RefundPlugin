@@ -9,6 +9,7 @@ sylius_refund:
         refund_request_message:
             message_files: Files
     ui:
+        edit_application_reason: Edit application reason
         send_item: Send item
         receive_package: Receive package
         refund_request_messages: Messages

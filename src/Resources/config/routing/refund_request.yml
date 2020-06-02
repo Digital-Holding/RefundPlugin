@@ -1,0 +1,5 @@
+sylius_refund_shop_api_customer_add_refund_request:
+    path: /order/{orderId}/item/{orderItemUnitId}/refund-request
+    methods: [POST]
+    defaults:
+        _controller: sylius_refund_plugin.controller.api.create_customer_refund_request_action

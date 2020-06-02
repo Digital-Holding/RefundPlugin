@@ -14,6 +14,10 @@
         <field name="state" column="state" type="string" />
         <field name="createdAt" column="created_at" type="datetime"/>
 
+        <many-to-one field="shopUser" target-entity="Sylius\Component\Core\Model\ShopUserInterface">
+            <join-column name="shop_user_id" referenced-column-name="id" nullable="true" />
+        </many-to-one>
+
         <many-to-one field="channel" target-entity="Sylius\Component\Core\Model\ChannelInterface">
             <join-column name="channel_id" />
         </many-to-one>

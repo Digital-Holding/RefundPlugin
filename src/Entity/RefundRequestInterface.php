@@ -7,6 +7,7 @@ namespace Sylius\RefundPlugin\Entity;
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Channel\Model\ChannelAwareInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
 interface RefundRequestInterface extends ResourceInterface, ChannelAwareInterface
@@ -50,4 +51,8 @@ interface RefundRequestInterface extends ResourceInterface, ChannelAwareInterfac
     public function addMessage(RefundRequestMessageInterface $message): void;
 
     public function removeOrderNote(RefundRequestMessageInterface $message): void;
+
+    public function getShopUser(): ?ShopUserInterface;
+
+    public function setShopUser(?ShopUserInterface $shopUser): void;
 }

@@ -16,3 +16,15 @@ sylius_refund_shop_api_show_application_reasons_by_type:
     methods: [GET]
     defaults:
         _controller: sylius_refund_plugin.controller.api.show_application_reason_by_type
+
+sylius_refund_shop_api_show_shop_user_refund_request_list:
+    path: /refund-shop-api/me/refund-requests
+    methods: [GET]
+    defaults:
+        _controller: sylius_refund_plugin.controller.api.show_shop_user_refund_request_list
+
+sylius_refund_shop_api_show_shop_user_refund_request_by_id:
+    path: /refund-shop-api/me/refund-request/{id}
+    methods: [GET]
+    defaults:
+        _controller: sylius_refund_plugin.controller.api.show_shop_user_refund_request_by_id

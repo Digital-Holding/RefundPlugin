@@ -85,6 +85,7 @@ final class CreateCustomerRefundRequestHandler
         $refundRequest->setApplicationReason($applicationReason);
         $refundRequest->setOrder($order);
         $refundRequest->setChannel($channel);
+        $refundRequest->setShopUser($user);
 
         $lineItem = $this->lineItemsConverter->convertUnit($orderItemUnit);
         $refundRequest->setLineItem($lineItem);

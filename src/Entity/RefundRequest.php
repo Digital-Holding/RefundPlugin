@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Channel\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\ShopUserInterface;
 
 class RefundRequest implements RefundRequestInterface
 {
@@ -34,6 +35,9 @@ class RefundRequest implements RefundRequestInterface
 
     /** @var Collection|RefundRequestMessageInterface[] */
     protected $messages;
+
+    /** @var ShopUserInterface */
+    protected $shopUser;
 
     public function __construct()
     {
@@ -130,5 +134,15 @@ class RefundRequest implements RefundRequestInterface
             $this->messages->removeElement($message);
             $message->setRefundRequest(null);
         }
+    }
+
+    public function getShopUser(): ?ShopUserInterface
+    {
+        return $this->shopUser;
+    }
+
+    public function setShopUser(?ShopUserInterface $shopUser): void
+    {
+        $this->shopUser = $shopUser;
     }
 }

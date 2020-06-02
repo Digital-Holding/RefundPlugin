@@ -34,6 +34,7 @@ sylius_resource:
                 model: Sylius\RefundPlugin\Entity\RefundRequest
                 interface: Sylius\RefundPlugin\Entity\RefundRequestInterface
                 controller: Sylius\RefundPlugin\Controller\RefundRequestController
+                repository: Sylius\RefundPlugin\Repository\RefundRequestRepository
         sylius_refund.refund_request_message:
             classes:
                 model: Sylius\RefundPlugin\Entity\RefundRequestMessage
