@@ -65,6 +65,8 @@ final class RefundRequestController extends ResourceController
 
     public function changeState(Request $request): Response
     {
+        $router = $this->container->get('router');
+
         $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
 
         $this->isGrantedOr403($configuration, ResourceActions::UPDATE);
@@ -104,6 +106,12 @@ final class RefundRequestController extends ResourceController
 
         $this->applyStateMachineTransitionAction($request);
         $this->manager->flush();
+
+        if ('accepted' === $resource->getState()){
+            return new RedirectResponse($router->generate(
+                'sylius_refund_order_refunds_list', ['orderNumber' => $resource->getOrder()->getNumber()]
+            ));
+        }
 
         return $this->redirectHandler->redirectToResource($configuration, $resource);
     }
