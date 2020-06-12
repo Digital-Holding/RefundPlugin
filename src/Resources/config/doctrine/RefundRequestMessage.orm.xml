@@ -23,6 +23,9 @@
 
         <many-to-one target-entity="Sylius\RefundPlugin\Entity\RefundRequestInterface" field="refundRequest" inversed-by="messages">
             <join-column name="refund_request_id" referenced-column-name="id" nullable="false" on-delete="CASCADE" />
+            <cascade>
+                <cascade-persist />
+            </cascade>
         </many-to-one>
 
         <one-to-many field="refundRequestMessageFiles" target-entity="Sylius\RefundPlugin\Entity\RefundRequestMessageFileInterface" mapped-by="refundRequestMessage">

@@ -2,25 +2,37 @@
 
 namespace Sylius\RefundPlugin\Command\Api;
 
+use Symfony\Component\HttpFoundation\FileBag;
+
 class CreateCustomerRefundRequest implements CommandInterface
 {
     /** @var integer */
     protected $orderId;
 
     /** @var integer */
-    protected $orderItemUnitId;
+    protected $orderItemId;
 
     /** @var string */
     protected $applicationReasonCode;
 
+    /** @var string */
+    protected $description;
+
+    /** @var FileBag|null */
+    protected $attachments;
+
     public function __construct(
         $orderId,
-        $orderItemUnitId,
-        string $applicationReasonCode
+        $orderItemId,
+        string $applicationReasonCode,
+        string $description,
+        ?FileBag $attachments = null
     ) {
         $this->orderId = $orderId;
-        $this->orderItemUnitId = $orderItemUnitId;
+        $this->orderItemId = $orderItemId;
         $this->applicationReasonCode = $applicationReasonCode;
+        $this->description = $description;
+        $this->attachments = $attachments;
     }
 
     /**
@@ -34,13 +46,23 @@ class CreateCustomerRefundRequest implements CommandInterface
     /**
      * @return int|string
      */
-    public function orderItemUnitId()
+    public function orderItemId()
     {
-        return $this->orderItemUnitId;
+        return $this->orderItemId;
     }
 
     public function applicationReasonCode(): string
     {
         return $this->applicationReasonCode;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function attachments(): ?FileBag
+    {
+        return $this->attachments;
     }
 }

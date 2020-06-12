@@ -9,3 +9,15 @@ sylius_refund_shop_api_show_shop_user_refund_request_by_id:
     methods: [GET]
     defaults:
         _controller: sylius_refund_plugin.controller.api.show_shop_user_refund_request_by_id
+
+sylius_refund_shop_api_show_shop_user_refund_request_message_list:
+    path: /me/refund-request/{id}/messages
+    methods: [GET]
+    defaults:
+        _controller: sylius_refund_plugin.controller.api.show_shop_user_refund_request_message_list
+
+sylius_refund_shop_api_add_shop_user_refund_request_message:
+    path: /me/refund-request/{id}/send-message
+    methods: [PUT]
+    defaults:
+        _controller: sylius_refund_plugin.controller.api.add_refund_request_message_action

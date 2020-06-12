@@ -17,4 +17,7 @@ class RefundRequestMessageView
 
     /** @var string */
     public $createdAt;
+
+    /** @var RefundRequestMessageFileView[] */
+    public $files = [];
 }

@@ -169,12 +169,12 @@
             <argument type="string">sylius_refund_plugin_media</argument>
         </service>
 
-        <service id="dh.sylius_refund_plugin.uploader.refund_request_message_file_uploader" class="Sylius\RefundPlugin\Uploader\RefundRequestMessageFileUploader" public="true" >
+        <service id="sylius_refund_plugin.sylius_refund_plugin.uploader.refund_request_message_file_uploader" class="Sylius\RefundPlugin\Uploader\RefundRequestMessageFileUploader" public="true" >
             <argument type="service" id="sylius_refund_plugin.service.refund_request_message_file_service" />
         </service>
 
         <service id="sylius_refund_plugin.listener.refund_request_message_file_upload" class="Sylius\RefundPlugin\Listener\RefundRequestMessageFileUploadListener">
-            <argument type="service" id="dh.sylius_refund_plugin.uploader.refund_request_message_file_uploader" />
+            <argument type="service" id="sylius_refund_plugin.sylius_refund_plugin.uploader.refund_request_message_file_uploader" />
             <tag name="kernel.event_listener" event="dh_refund_plugin_refund_request_message" method="uploadRefundRequestMessageFiles" />
         </service>
 
@@ -184,6 +184,14 @@
 
         <service id="sylius_refund.view_factory.refund_request" class="Sylius\RefundPlugin\Factory\Api\RefundRequestViewFactory" >
             <argument type="service" id="sylius_refund.view_factory.refund_request_message" />
+        </service>
+        <service id="sylius.custom_inventory.order_inventory_operator" class="Sylius\Bundle\CoreBundle\Doctrine\ORM\Inventory\Operator\OrderInventoryOperator" decorates="sylius.inventory.order_inventory_operator" public="false">
+            <argument type="service" id="sylius.custom_inventory.order_inventory_operator.inner" />
+            <argument type="service" id="sylius.manager.product_variant" />
+        </service>
+
+        <service id="sylius_refund.custom_factory.refund_request_message_file" class="Sylius\RefundPlugin\Factory\RefundRequestMessageFileFactory" decorates="sylius_refund.factory.refund_request_message_file" decoration-priority="256" public="false">
+            <argument type="service" id="sylius_refund.custom_factory.refund_request_message_file.inner" />
         </service>
     </services>
 </container>

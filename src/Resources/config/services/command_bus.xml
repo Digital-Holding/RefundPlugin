@@ -30,12 +30,28 @@
         <service id="Sylius\RefundPlugin\CommandHandler\Api\CreateCustomerRefundRequestHandler" >
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="security.token_storage"/>
-            <argument type="service" id="sylius.repository.order_item_unit"/>
+            <argument type="service" id="sylius.repository.order_item"/>
             <argument type="service" id="Sylius\RefundPlugin\Converter\LineItemsConverterInterface"/>
             <argument type="service" id="sylius_refund.factory.refund_request"/>
             <argument type="service" id="sylius_refund.repository.application_reason"/>
             <argument type="service" id="sylius.context.channel"/>
             <argument type="service" id="sylius_refund.repository.refund_request"/>
+            <argument type="service" id="sylius_refund.factory.refund_request_message"/>
+            <argument type="service" id="sylius_refund.factory.refund_request_message_file"/>
+            <argument type="service" id="sylius_refund_plugin.sylius_refund_plugin.uploader.refund_request_message_file_uploader"/>
+            <argument type="service" id="sylius_refund.repository.refund_request_message_file"/>
+            <argument type="service" id="Sylius\RefundPlugin\Provider\RemainingTotalProvider"/>
+            <tag name="messenger.message_handler" bus="sylius_refund_plugin.command_bus" />
+        </service>
+
+        <service id="Sylius\RefundPlugin\CommandHandler\Api\AddRefundRequestMessageHandler" >
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="sylius_refund.repository.refund_request"/>
+            <argument type="service" id="sylius_refund.factory.refund_request_message"/>
+            <argument type="service" id="sylius_refund.factory.refund_request_message_file"/>
+            <argument type="service" id="sylius_refund_plugin.sylius_refund_plugin.uploader.refund_request_message_file_uploader"/>
+            <argument type="service" id="sylius_refund.repository.refund_request_message_file"/>
             <tag name="messenger.message_handler" bus="sylius_refund_plugin.command_bus" />
         </service>
     </services>

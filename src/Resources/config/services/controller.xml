@@ -35,5 +35,20 @@
             <argument type="service" id="sylius_refund.repository.refund_request"/>
             <argument type="service" id="security.token_storage"/>
         </service>
+
+        <service id="sylius_refund_plugin.controller.api.show_shop_user_refund_request_message_list" class="Sylius\RefundPlugin\Controller\Api\ShowRefundRequestMessageListAction">
+            <argument type="service" id="fos_rest.view_handler"/>
+            <argument type="service" id="sylius_refund_plugin.command_bus"/>
+            <argument type="service" id="validator"/>
+            <argument type="service" id="sylius_refund.view_factory.refund_request_message"/>
+            <argument type="service" id="sylius_refund.repository.refund_request"/>
+            <argument type="service" id="security.token_storage"/>
+        </service>
+
+        <service id="sylius_refund_plugin.controller.api.add_refund_request_message_action" class="Sylius\RefundPlugin\Controller\Api\AddRefundRequestMessageAction">
+            <argument type="service" id="fos_rest.view_handler"/>
+            <argument type="service" id="sylius_refund_plugin.command_bus"/>
+            <argument type="service" id="validator"/>
+        </service>
     </services>
 </container>

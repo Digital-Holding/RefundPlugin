@@ -6,7 +6,7 @@ sylius_refund_shop_api_login:
     path: /refund-shop-api/login
 
 sylius_refund_shop_api_customer_refund_request:
-    path: /refund-shop-api/order/{orderId}/item/{orderItemUnitId}/refund-request
+    path: /refund-shop-api/order/{orderId}/item/{orderItemId}/refund-request
     methods: [POST]
     defaults:
         _controller: sylius_refund_plugin.controller.api.create_customer_refund_request_action
@@ -28,3 +28,15 @@ sylius_refund_shop_api_show_shop_user_refund_request_by_id:
     methods: [GET]
     defaults:
         _controller: sylius_refund_plugin.controller.api.show_shop_user_refund_request_by_id
+
+sylius_refund_shop_api_show_shop_user_refund_request_message_list:
+    path: /refund-shop-api/me/refund-request/{id}/messages
+    methods: [GET]
+    defaults:
+        _controller: sylius_refund_plugin.controller.api.show_shop_user_refund_request_message_list
+
+sylius_refund_shop_api_add_shop_user_refund_request_message:
+    path: /refund-shop-api/me/refund-request/{id}/send-message
+    methods: [PUT]
+    defaults:
+        _controller: sylius_refund_plugin.controller.api.add_refund_request_message_action

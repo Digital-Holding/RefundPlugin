@@ -9,7 +9,7 @@ use Sylius\RefundPlugin\Service\RefundRequestMessageFileService;
 use Symfony\Component\HttpFoundation\File\File;
 use Webmozart\Assert\Assert;
 
-final class RefundRequestMessageFileUploader
+final class RefundRequestMessageFileUploader implements RefundRequestMessageFileUploaderInterface
 {
     private $refundRequestMessageFileService;
 
