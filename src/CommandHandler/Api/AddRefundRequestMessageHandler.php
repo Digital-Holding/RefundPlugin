@@ -67,7 +67,7 @@ final class AddRefundRequestMessageHandler
 
         /** @var RefundRequestMessageInterface $refundRequestMessage */
         $refundRequestMessage = $this->refundRequestMessageFactory->createNew();
-        $refundRequestMessage->setMessage($command->getMessage());
+        $refundRequestMessage->setMessage($command->message());
         $refundRequestMessage->setShopUser($user);
 
         $refundRequest->addMessage($refundRequestMessage);

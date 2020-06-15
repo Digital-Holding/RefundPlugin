@@ -18,6 +18,6 @@ sylius_refund_shop_api_show_shop_user_refund_request_message_list:
 
 sylius_refund_shop_api_add_shop_user_refund_request_message:
     path: /me/refund-request/{id}/send-message
-    methods: [PUT]
+    methods: [POST]
     defaults:
         _controller: sylius_refund_plugin.controller.api.add_refund_request_message_action

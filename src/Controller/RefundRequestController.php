@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 final class RefundRequestController extends ResourceController
 {
@@ -38,6 +39,12 @@ final class RefundRequestController extends ResourceController
         if (in_array($request->getMethod(), ['POST', 'PUT', 'PATCH'], true)) {
             /** @var RefundRequestMessageInterface $refundRequestMessage */
             $refundRequestMessage = $form->getData();
+
+            /** @var TokenStorageInterface $tokenStorage */
+            $tokenStorage = $this->container->get('security.token_storage');
+
+            $adminUser = $tokenStorage->getToken()->getUser();
+            $refundRequestMessage->setAdminUser($adminUser);
 
             $refundRequest =$refundRequestRepository->findOneBy(['id' => $refundRequestId]);
             $refundRequest->addMessage($refundRequestMessage);

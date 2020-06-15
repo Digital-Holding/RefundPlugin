@@ -30,11 +30,18 @@
             <join-column name="application_reason_id" referenced-column-name="id" nullable="false" on-delete="CASCADE" />
         </many-to-one>
 
-
         <one-to-many field="messages" target-entity="Sylius\RefundPlugin\Entity\RefundRequestMessageInterface" mapped-by="refundRequest" orphan-removal="true">
             <cascade>
                 <cascade-all />
             </cascade>
         </one-to-many>
+
+        <one-to-one field="lineItem" target-entity="Sylius\RefundPlugin\Entity\LineItemInterface">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+            <join-column name="line_item_id" referenced-column-name="id" nullable="false" />
+        </one-to-one>
     </mapped-superclass>
 </doctrine-mapping>

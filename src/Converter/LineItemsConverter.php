@@ -55,9 +55,9 @@ final class LineItemsConverter implements LineItemsConverterInterface
         /** @var OrderItemInterface $orderItem */
         $orderItem = $orderItemUnit->getOrderItem();
 
-        $grossValue = 0;
-        $taxAmount = 0;
-        $netValue = 0;
+        $grossValue = $orderItemUnit->getTotal();
+        $taxAmount = (int)($grossValue * $orderItemUnit->getTaxTotal() / $orderItemUnit->getTotal());
+        $netValue = $grossValue - $taxAmount;
 
         return new LineItem(
             $orderItem->getProductName(),

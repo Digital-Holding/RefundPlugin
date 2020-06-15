@@ -33,7 +33,7 @@ class AddRefundRequestMessage implements CommandInterface
         return $this->refundRequestId;
     }
 
-    public function getMessage(): string
+    public function message(): string
     {
         return $this->message;
     }

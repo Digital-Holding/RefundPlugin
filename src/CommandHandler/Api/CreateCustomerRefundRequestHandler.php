@@ -64,6 +64,9 @@ final class CreateCustomerRefundRequestHandler
     /** @var RemainingTotalProviderInterface */
     private $remainingTotalProvider;
 
+    /** @var RepositoryInterface */
+    private $lineItemRepository;
+
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         TokenStorageInterface $tokenStorage,
@@ -77,7 +80,8 @@ final class CreateCustomerRefundRequestHandler
         RefundRequestMessageFileFactoryInterface $refundRequestMessageFileFactory,
         RefundRequestMessageFileUploaderInterface $refundRequestMessageFileUploader,
         RepositoryInterface $refundRequestMessageFileRepository,
-        RemainingTotalProviderInterface $remainingTotalProvider
+        RemainingTotalProviderInterface $remainingTotalProvider,
+        RepositoryInterface $lineItemRepository
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->tokenStorage = $tokenStorage;
@@ -92,6 +96,7 @@ final class CreateCustomerRefundRequestHandler
         $this->refundRequestMessageFileUploader = $refundRequestMessageFileUploader;
         $this->refundRequestMessageFileRepository = $refundRequestMessageFileRepository;
         $this->remainingTotalProvider = $remainingTotalProvider;
+        $this->lineItemRepository = $lineItemRepository;
     }
 
     public function __invoke(CreateCustomerRefundRequest $command): void
@@ -118,6 +123,16 @@ final class CreateCustomerRefundRequestHandler
         /** @var RefundRequestInterface $refundRequest */
         $refundRequest = $this->refundRequestFactory->createNew();
 
+        foreach ($orderItem->getUnits() as $itemUnit) {
+            if($this->remainingTotalProvider->getTotalLeftToRefund($itemUnit->getId(), RefundType::orderItemUnit()) > 0) {
+                $lineItem = $this->lineItemsConverter->convertUnit($itemUnit);
+
+                $refundRequest->setLineItem($lineItem);
+                $this->lineItemRepository->add($lineItem);
+                break;
+            }
+        }
+
         $refundRequest->setApplicationReason($applicationReason);
         $refundRequest->setOrder($order);
         $refundRequest->setChannel($channel);
@@ -136,14 +151,6 @@ final class CreateCustomerRefundRequestHandler
             }
         }
 
-        foreach ($orderItem->getUnits() as $itemUnit) {
-            if($this->remainingTotalProvider->getTotalLeftToRefund($itemUnit->getId(), RefundType::orderItemUnit()) > 0) {
-                $lineItem = $this->lineItemsConverter->convertUnit($itemUnit);
-                $refundRequest->setLineItem($lineItem);
-
-                break;
-            }
-        }
 
         $this->refundRequestRepository->add($refundRequest);
     }
