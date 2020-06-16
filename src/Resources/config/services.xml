@@ -184,10 +184,7 @@
             <argument type="service" id="sylius_refund.view_factory.refund_request_message_file" />
         </service>
 
-        <service id="sylius_refund.view_factory.refund_request_message_file" class="Sylius\RefundPlugin\Factory\Api\RefundRequestMessageFileViewFactory" >
-            <argument type="string">%kernel.project_dir%</argument>
-            <argument type="service" id="url_helper" />
-        </service>
+        <service id="sylius_refund.view_factory.refund_request_message_file" class="Sylius\RefundPlugin\Factory\Api\RefundRequestMessageFileViewFactory" />
 
         <service id="sylius_refund.view_factory.refund_request" class="Sylius\RefundPlugin\Factory\Api\RefundRequestViewFactory" >
             <argument type="service" id="sylius_refund.view_factory.refund_request_message" />

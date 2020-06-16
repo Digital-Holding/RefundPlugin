@@ -7,8 +7,11 @@ namespace Sylius\RefundPlugin\View\RefundRequest;
 class RefundRequestMessageFileView
 {
     /** @var string */
-    public $type;
+    public $hash;
 
     /** @var string */
-    public $path;
+    public $fileName;
+
+    /** @var string */
+    public $mimeType;
 }

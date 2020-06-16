@@ -21,3 +21,9 @@ sylius_refund_shop_api_add_shop_user_refund_request_message:
     methods: [POST]
     defaults:
         _controller: sylius_refund_plugin.controller.api.add_refund_request_message_action
+
+sylius_refund_shop_api_get_refund_request_message_file:
+    path: /refund-shop-api/me/refund-request/message-file/{hash}
+    methods: [GET]
+    defaults:
+        _controller: sylius_refund_plugin.controller.api.get_refund_request_message_file_action

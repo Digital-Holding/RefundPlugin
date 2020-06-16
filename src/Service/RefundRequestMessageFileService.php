@@ -7,6 +7,7 @@ namespace Sylius\RefundPlugin\Service;
 use Doctrine\Common\Persistence\ObjectManager;
 use Gaufrette\Filesystem;
 use Sylius\RefundPlugin\Entity\RefundRequestMessage;
+use Sylius\RefundPlugin\Entity\RefundRequestMessageFile;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -39,7 +40,7 @@ class RefundRequestMessageFileService
 
     public function getFileAsResponse(string $hash)
     {
-        $refundRequestMessageFileRepository = $this->objectManager->getRepository(RefundRequestMessage::class);
+        $refundRequestMessageFileRepository = $this->objectManager->getRepository(RefundRequestMessageFile::class);
 
         if (!$fileInfo = $refundRequestMessageFileRepository->findOneBy(['hash' => $hash]))
         {

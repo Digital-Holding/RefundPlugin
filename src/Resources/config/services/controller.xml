@@ -50,5 +50,9 @@
             <argument type="service" id="sylius_refund_plugin.command_bus"/>
             <argument type="service" id="validator"/>
         </service>
+
+        <service id="sylius_refund_plugin.controller.api.get_refund_request_message_file_action" class="Sylius\RefundPlugin\Controller\Api\GetRefundRequestMessageFileAction">
+            <argument type="service" id="sylius_refund_plugin.service.refund_request_message_file_service"/>
+        </service>
     </services>
 </container>
