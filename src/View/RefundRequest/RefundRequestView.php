@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\View\RefundRequest;
 
-use Sylius\RefundPlugin\View\ApplicationReason\ApplicationReasonView;
-
 class RefundRequestView
 {
     /** @var mixed */
@@ -28,6 +26,9 @@ class RefundRequestView
 
     /** @var string */
     public $createdAt;
+
+    /** @var string */
+    public $tokenValue;
 
     /** @var array|RefundRequestMessageView[] */
     public $messages;

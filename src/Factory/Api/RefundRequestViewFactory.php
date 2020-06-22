@@ -23,11 +23,13 @@ final class RefundRequestViewFactory implements RefundRequestViewFactoryInterfac
         $refundRequestView = new RefundRequestView();
 
         $refundRequestView->id = $refundRequest->getId();
+        $refundRequestView->productName = $refundRequest->getLineItem()->name();
         $refundRequestView->applicationReason = $refundRequest->getApplicationReason()->getName();
         $refundRequestView->applicationReasonType = $refundRequest->getApplicationReason()->getType();
         $refundRequestView->orderNumber = $refundRequest->getOrder()->getNumber();
         $refundRequestView->createdAt = $refundRequest->getCreatedAt()->format('c');
         $refundRequestView->state = $refundRequest->getState();
+        $refundRequestView->tokenValue = $refundRequest->getOrder()->getTokenValue();
 
         return $refundRequestView;
     }
