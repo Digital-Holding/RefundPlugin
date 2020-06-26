@@ -32,4 +32,10 @@ class RefundRequestView
 
     /** @var array|RefundRequestMessageView[] */
     public $messages;
+
+    /** @var string */
+    public $variantCode;
+
+    /** @var string */
+    public $variantName;
 }

@@ -36,6 +36,12 @@ class LineItem implements LineItemInterface
     /** @var string|null */
     protected $taxRate;
 
+    /** @var string|null */
+    protected $variantCode;
+
+    /** @var string|null */
+    protected $variantName;
+
     public function __construct(
         string $name,
         int $quantity,
@@ -44,7 +50,9 @@ class LineItem implements LineItemInterface
         int $netValue,
         int $grossValue,
         int $taxAmount,
-        ?string $taxRate = null
+        ?string $taxRate = null,
+        ?string $variantCode = null,
+        ?string $variantName = null
     ) {
         $this->name = $name;
         $this->quantity = $quantity;
@@ -54,6 +62,8 @@ class LineItem implements LineItemInterface
         $this->grossValue = $grossValue;
         $this->taxAmount = $taxAmount;
         $this->taxRate = $taxRate;
+        $this->variantCode = $variantCode;
+        $this->variantName = $variantName;
     }
 
     public function getId(): ?int
@@ -104,6 +114,16 @@ class LineItem implements LineItemInterface
     public function taxRate(): ?string
     {
         return $this->taxRate;
+    }
+
+    public function variantCode(): ?string
+    {
+        return $this->variantCode;
+    }
+
+    public function variantName(): ?string
+    {
+        return $this->variantName;
     }
 
     public function merge(LineItemInterface $newLineItem): void

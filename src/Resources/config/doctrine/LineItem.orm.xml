@@ -14,5 +14,7 @@
         <field name="grossValue" column="gross_value" type="integer" />
         <field name="taxAmount" column="tax_amount" type="integer" />
         <field name="taxRate" column="tax_rate" type="string" nullable="true" />
+        <field name="variantCode" column="variant_code" type="string" nullable="true" />
+        <field name="variantName" column="variant_name" type="string" nullable="true" />
     </mapped-superclass>
 </doctrine-mapping>

@@ -59,6 +59,8 @@ final class LineItemsConverter implements LineItemsConverterInterface
         $taxAmount = (int)($grossValue * $orderItemUnit->getTaxTotal() / $orderItemUnit->getTotal());
         $netValue = $grossValue - $taxAmount;
 
+        $variant = $orderItem->getVariant();
+
         return new LineItem(
             $orderItem->getProductName(),
             1,
@@ -67,7 +69,9 @@ final class LineItemsConverter implements LineItemsConverterInterface
             $netValue,
             $grossValue,
             $taxAmount,
-            $this->taxRateProvider->provide($orderItemUnit)
+            $this->taxRateProvider->provide($orderItemUnit),
+            $variant->getCode(),
+            $variant->getName()
         );
     }
 
