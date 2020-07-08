@@ -1,0 +1,60 @@
+sylius_refund:
+  form:
+    application_reason_type:
+      refund_type: Reklamacja
+      return_type: zwrot
+    application_reason:
+      name: Nazwa powodu zgłoszenia
+      type: Typ powodu zgłoszenia
+    refund_request_message:
+      message_files: Pliki
+  ui:
+    edit_application_reason: Edycja powodu zgłoszenia
+    send_item: Wyślij przedmiot
+    receive_package: Odbierz paczkę
+    refund_request_messages: Wiadomości
+    created_for_order: Stworzone dla zamówienia
+    created_from: Utworzone z
+    refund_request_state: stan
+    created_at: Utworzone w
+    refund_request: Zgłoszenie reklamacji
+    refund_requests: Zgłoszenia reklamacji
+    manage_refund_requests: Zarządzanie zgłoszeniami reklamacji
+    application_reason: Powód zgłoszenia
+    application_reasons: Powowdy zgłoszenia
+    manage_application_reason: Zarządzanie powodami zgłoszeń
+    new_application_reason: Nowa
+    buyer: Kupujący
+    clear_refunds: Wyczyść wszystkie
+    new: Nowy
+    completed: Zakończony
+    credit_memo: Informacja kredytowa
+    credit_memos: Informacje kredytowe
+    download: Pobierz
+    gross_value: Wartość brutto
+    issued_at: Zgłoszone w
+    issued_for_order: Zgłoszone dla zamówienia
+    issued_from: Zgłoszone z
+    manage_credit_memos: Zarządzanie informacjami kredytowymi
+    net_value: Wartość netto
+    no: Nie.
+    order_number: Numer zamówienia
+    partial_refund: Częściowy zwrot
+    refund: Zwrot
+    refund_all: Zwróć wszystko
+    refund_payment_completed: Płatność zwrotu zakończona pomyślnie
+    refund_payments: Płatności zwrotów
+    refund_value: Wartość zwrotu
+    refunded: Zwrócono
+    refunded_total: Zwrócono wszystko
+    refunds: Zwroty
+    resend: Wyślij ponownie
+    seller: Sprzedający
+    tax_amount: Wartośc podatku
+    tax_rate: Wysokość podatku %
+    unit_net_price: Wartość netto przedmiotu
+
+sylius:
+  ui:
+    original_payment_method: Oryginalna metoda płatności
+    partially_refunded: Częściowo zwrócone
