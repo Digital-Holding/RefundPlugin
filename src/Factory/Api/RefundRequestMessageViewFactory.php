@@ -13,11 +13,21 @@ final class RefundRequestMessageViewFactory implements RefundRequestMessageViewF
     /** @var RefundRequestMessageFileViewFactoryInterface */
     private $refundRequestMessageFileViewFactory;
 
+    /** @var AdminUserViewFactoryInterface */
+    private $adminUserViewFactory;
+
+    /** @var ShopUserViewFactoryInteface */
+    private $shopUserViewFactory;
+
     public function __construct(
-        RefundRequestMessageFileViewFactoryInterface $refundRequestMessageFileViewFactory
+        RefundRequestMessageFileViewFactoryInterface $refundRequestMessageFileViewFactory,
+        AdminUserViewFactoryInterface $adminUserViewFactory,
+        ShopUserViewFactoryInteface $shopUserViewFactory
     )
     {
         $this->refundRequestMessageFileViewFactory = $refundRequestMessageFileViewFactory;
+        $this->adminUserViewFactory = $adminUserViewFactory;
+        $this->shopUserViewFactory = $shopUserViewFactory;
     }
 
     public function create(RefundRequestMessageInterface $refundRequestMessage): RefundRequestMessageView
@@ -25,8 +35,8 @@ final class RefundRequestMessageViewFactory implements RefundRequestMessageViewF
         /** @var RefundRequestMessageView $refundRequestMessageView */
         $refundRequestMessageView = new RefundRequestMessageView();
 
-        $refundRequestMessageView->adminUser = $refundRequestMessage->getAdminUser();
-        $refundRequestMessageView->shopUser = $refundRequestMessage->getShopUser();
+        $refundRequestMessageView->adminUser = $this->adminUserViewFactory->create($refundRequestMessage->getAdminUser());
+        $refundRequestMessageView->shopUser = $this->shopUserViewFactory->create($refundRequestMessage->getShopUser());
         $refundRequestMessageView->message = $refundRequestMessage->getMessage();
         $refundRequestMessageView->createdAt = $refundRequestMessage->getDateTime()->format('c');
 

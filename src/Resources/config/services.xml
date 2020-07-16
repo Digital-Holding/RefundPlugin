@@ -182,6 +182,8 @@
 
         <service id="sylius_refund.view_factory.refund_request_message" class="Sylius\RefundPlugin\Factory\Api\RefundRequestMessageViewFactory" >
             <argument type="service" id="sylius_refund.view_factory.refund_request_message_file" />
+            <argument type="service" id="sylius_refund.view_factory.admin_user" />
+            <argument type="service" id="sylius_refund.view_factory.shop_user" />
         </service>
 
         <service id="sylius_refund.view_factory.refund_request_message_file" class="Sylius\RefundPlugin\Factory\Api\RefundRequestMessageFileViewFactory" />
@@ -196,6 +198,14 @@
 
         <service id="sylius_refund.custom_factory.refund_request_message_file" class="Sylius\RefundPlugin\Factory\RefundRequestMessageFileFactory" decorates="sylius_refund.factory.refund_request_message_file" decoration-priority="256" public="false">
             <argument type="service" id="sylius_refund.custom_factory.refund_request_message_file.inner" />
+        </service>
+
+        <service id="sylius_refund.view_factory.admin_user" class="Sylius\RefundPlugin\Factory\Api\AdminUserViewFactory" />
+
+        <service id="sylius_refund.view_factory.customer" class="Sylius\RefundPlugin\Factory\Api\CustomerViewFactory" />
+
+        <service id="sylius_refund.view_factory.shop_user" class="Sylius\RefundPlugin\Factory\Api\ShopUserViewFactory" >
+            <argument type="service" id="sylius_refund.view_factory.customer" />
         </service>
     </services>
 </container>
