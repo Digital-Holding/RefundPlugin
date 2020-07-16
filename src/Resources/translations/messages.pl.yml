@@ -21,7 +21,7 @@ sylius_refund:
     refund_requests: Zgłoszenia reklamacji
     manage_refund_requests: Zarządzanie zgłoszeniami reklamacji
     application_reason: Powód zgłoszenia
-    application_reasons: Powowdy zgłoszenia
+    application_reasons: Powody zgłoszenia
     manage_application_reason: Zarządzanie powodami zgłoszeń
     new_application_reason: Nowa
     buyer: Kupujący
