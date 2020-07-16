@@ -37,7 +37,7 @@ final class AdminMainMenuListener
             ->addChild('application_reason', [
                 'route' => 'sylius_refund_admin_application_reason_index',
             ])
-            ->setLabel('sylius_refund.ui.application_reason')
+            ->setLabel('sylius_refund.ui.application_reasons')
             ->setLabelAttribute('icon', 'wpforms')
         ;
 
