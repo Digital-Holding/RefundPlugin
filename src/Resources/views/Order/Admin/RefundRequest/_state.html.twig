@@ -10,7 +10,7 @@
 </div>
 <div class="ui attached segment" id="refund-request-state">
     <strong>{{ 'sylius.ui.order'|trans }}:</strong><br/>
-    #{{ refund_request.order.number }}<br/>
+    <a href="{{ path('sylius_admin_order_show', {'id': refund_request.order.id}) }}"> #{{ refund_request.order.number }}</a><br/>
 
     <strong>{{ 'sylius.ui.created_at'|trans }}:</strong><br/>
     {{ refund_request.createdAt|date('d-m-Y H:i:s') }}

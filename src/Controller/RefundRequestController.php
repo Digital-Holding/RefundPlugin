@@ -7,6 +7,7 @@ namespace Sylius\RefundPlugin\Controller;
 use FOS\RestBundle\View\View;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\Component\Resource\ResourceActions;
@@ -121,5 +122,25 @@ final class RefundRequestController extends ResourceController
         }
 
         return $this->redirectHandler->redirectToResource($configuration, $resource);
+    }
+
+    public function showOrderRefundRequests(string $orderId): Response
+    {
+        /** @var RepositoryInterface $orderRepostory */
+        $orderRepostory = $this->container->get('sylius.repository.order');
+
+        /** @var OrderInterface $order */
+        $order = $orderRepostory->findOneBy(['id' => $orderId]);
+
+        /** @var RepositoryInterface $refundRequestRepository */
+        $refundRequestRepository = $this->container->get('sylius_refund.repository.refund_request');
+
+        /** @var RefundRequestInterface $refundRequest */
+        $refundRequestList = $refundRequestRepository->findByOrder($order);
+
+        return $this->render('@SyliusRefundPlugin/Admin/Order/Admin/orderRefundRequestList.html.twig', [
+            'order' => $order,
+            'refundRequestList' => $refundRequestList
+        ]);
     }
 }

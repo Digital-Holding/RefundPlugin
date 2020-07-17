@@ -127,6 +127,12 @@ sylius_refund_admin_refund_request_add_message:
             permission: true
             template: "@SyliusRefundPlugin:Admin/RefundRequestMessage/refundRequestMessage.html.twig"
 
+sylius_refund_admin_order_refund_request_list:
+    path: /orders/{orderId}/refund-request-list
+    methods: [GET]
+    defaults:
+        _controller: sylius_refund.controller.refund_request:showOrderRefundRequests
+
 sylius_refund_admin_refund_request_accept:
     path: /orders/{orderId}/refund-request/{refundRequestId}/accept
     methods: [PUT]
