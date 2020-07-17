@@ -55,6 +55,9 @@ sylius_mailer:
         units_refunded:
             subject: Units refunded
             template: "@SyliusRefundPlugin/Email/unitsRefunded.html.twig"
+        refund_request_accepted:
+            subject: Unit refund request accepted
+            template: "@SyliusRefundPlugin/Email/unitsRefunded.html.twig"
 
 framework:
     messenger:
@@ -114,7 +117,12 @@ winzou_state_machine:
             complete:
                 from: [accepted, package_received]
                 to: completed
-
+        callbacks:
+            after:
+                sylius_refund_order_refund_accept:
+                    on: ["accept"]
+                    do: ["@sylius_refund_plugin.email_manager.order_refund", "sendRefundAcceptedEmail"]
+                    args: ["object"]
 sylius_grid:
     templates:
         filter:
