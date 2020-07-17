@@ -138,7 +138,7 @@ final class RefundRequestController extends ResourceController
         /** @var RefundRequestInterface $refundRequest */
         $refundRequestList = $refundRequestRepository->findByOrder($order);
 
-        return $this->render('@SyliusRefundPlugin/Admin/Order/Admin/orderRefundRequestList.html.twig', [
+        return $this->render('@SyliusRefundPlugin/Order/Admin/orderRefundRequestList.html.twig', [
             'order' => $order,
             'refundRequestList' => $refundRequestList
         ]);
