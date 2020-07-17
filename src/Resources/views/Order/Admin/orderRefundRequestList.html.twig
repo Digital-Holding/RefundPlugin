@@ -1,0 +1,29 @@
+<div class="ui one column grid">
+    <div class="column">
+        <h4 class="ui top attached styled header">
+            {{ ('sylius_refund.ui.refund_requests')|trans }}
+        </h4>
+        <div class="ui attached segment" id="order-changes">
+            <table class="ui stackable celled table">
+                <thead>
+                <tr>
+                    <th class="sylius-table-column-action">Zgłoszenie</th>
+                    <th class="sylius-table-column-loggedAt">Dodano o</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for refund_request in refundRequestList %}
+                    <tr class="item">
+                        <td>
+                            <a href="{{ path('sylius_refund_admin_refund_request_show', {'orderId': refund_request.order.id,'id': refund_request.id}) }}"> #{{ refund_request.id }}</a><br/>
+                        </td>
+                        <td>
+                            {{ refund_request.createdAt|date('Y-m-d H:i:s') }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

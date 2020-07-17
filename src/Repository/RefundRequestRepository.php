@@ -24,8 +24,7 @@ class RefundRequestRepository extends EntityRepository implements RefundRequestR
     public function findByOrder(OrderInterface $order): array
     {
         return $this->createQueryBuilder('o')
-            ->innerJoin('o.order', 'order')
-            ->andWhere('order = :order')
+            ->andWhere('o.order = :order')
             ->setParameter('order', $order)
             ->getQuery()
             ->getResult()
