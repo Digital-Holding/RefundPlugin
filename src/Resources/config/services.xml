@@ -102,9 +102,8 @@
             <argument type="service" id="Sylius\RefundPlugin\File\TemporaryFileManager" />
         </service>
 
-        <service id="sylius_refund_plugin.email_manager.order_refund" class="Sylius\RefundPlugin\EmailManager\OrderRefundEmailManager" decorates="sylius.email_manager.order">
+        <service id="sylius_refund_plugin.email_manager.order_refund" class="Sylius\RefundPlugin\EmailManager\OrderRefundEmailManager">
             <argument type="service" id="sylius.email_sender" />
-            <argument type="service" id="sylius_refund_plugin.email_manager.order_refund.inner" />
         </service>
 
         <service id="sylius_refund_plugin.block_event_listener.account.order_show" class="Sylius\Bundle\UiBundle\Block\BlockEventListener">
@@ -211,6 +210,24 @@
 
         <service id="sylius_refund.view_factory.shop_user" class="Sylius\RefundPlugin\Factory\Api\ShopUserViewFactory" >
             <argument type="service" id="sylius_refund.view_factory.customer" />
+        </service>
+
+        <service id="sylius_refund.creator.refund_product" class="Sylius\RefundPlugin\Creator\RefundProductCreator">
+            <argument type="service" id="sylius.factory.product" />
+            <argument type="service" id="sylius.context.channel" />
+            <argument type="service" id="sylius.repository.product" />
+            <argument type="service" id="sylius.generator.slug" />
+            <argument type="service" id="sylius.product_variant_resolver.default" />
+            <argument type="service" id="sylius.factory.channel_pricing" />
+        </service>
+
+        <service id="sylius_refund.assigner.refund" class="Sylius\RefundPlugin\Assigner\RefundAssigner">
+            <argument type="service" id="sylius_refund.creator.refund_product" />
+            <argument type="service" id="sylius.repository.product_variant" />
+            <argument type="service" id="sylius.repository.product" />
+            <argument type="service" id="sylius.factory.order_item" />
+            <argument type="service" id="sylius.order_item_quantity_modifier" />
+            <argument type="service" id="sylius.repository.order" />
         </service>
     </services>
 </container>

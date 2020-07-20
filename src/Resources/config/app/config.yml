@@ -123,6 +123,10 @@ winzou_state_machine:
                     on: ["accept"]
                     do: ["@sylius_refund_plugin.email_manager.order_refund", "sendRefundAcceptedEmail"]
                     args: ["object"]
+                sylius_refund_assign_refund_product:
+                    on: ["accept"]
+                    do: ["@sylius_refund.assigner.refund", "assignRefundProductToOrder"]
+                    args: ["object"]
 sylius_grid:
     templates:
         filter:
