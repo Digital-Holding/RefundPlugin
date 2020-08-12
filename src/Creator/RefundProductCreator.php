@@ -14,6 +14,8 @@ use Sylius\Component\Product\Factory\ProductFactoryInterface;
 use Sylius\Component\Product\Generator\SlugGeneratorInterface;
 use Sylius\Component\Product\Resolver\ProductVariantResolverInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
+use Sylius\RefundPlugin\Assigner\RefundAssigner;
+use Sylius\RefundPlugin\Entity\LineItemInterface;
 
 final class RefundProductCreator implements RefundProductCreatorInterface
 {
@@ -59,9 +61,10 @@ final class RefundProductCreator implements RefundProductCreatorInterface
         /** @var ProductInterface $product */
         $product = $this->productFactory->createWithVariant();
 
-        $product->setCode('refund_' . $unitCode);
+        $product->setCode(RefundAssigner::REFUND_PRODUCT_CODE);
         $product->setName($productName);
         $product->setSlug($this->slugGenerator->generate($productName));
+        $product->setDisposable(true);
 
         if (null !== $channel) {
             $product->addChannel($channel);
@@ -82,7 +85,9 @@ final class RefundProductCreator implements RefundProductCreatorInterface
             $productVariant->addChannelPricing($this->createChannelPricingForChannel($price, $channel));
         }
 
-        $productVariant->setCode($product->getCode());
+        $variantCode = $product->getCode() . '_' . $unitCode;
+
+        $productVariant->setCode($variantCode);
         $productVariant->setName($product->getName());
 
         $this->productRepository->add($product);
@@ -90,7 +95,7 @@ final class RefundProductCreator implements RefundProductCreatorInterface
         return $productVariant;
     }
 
-    public function createVariantForProduct(ProductInterface $product): ProductVariantInterface
+    public function createVariantForProduct(LineItemInterface $lineItem, ProductInterface $product): ProductVariantInterface
     {
         $channel = $this->channelContext->getChannel();
 
@@ -101,7 +106,9 @@ final class RefundProductCreator implements RefundProductCreatorInterface
             $productVariant->addChannelPricing($this->createChannelPricingForChannel(0, $channel));
         }
 
-        $productVariant->setCode($product->getCode());
+        $variantCode = $product->getCode() . '_' . $lineItem->variantCode();
+
+        $productVariant->setCode($variantCode);
         $productVariant->setName($product->getName());
 
         $this->productRepository->add($product);

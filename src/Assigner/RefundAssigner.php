@@ -61,15 +61,23 @@ final class RefundAssigner implements RefundRequestAssignerInterface
         /** @var OrderInterface $order */
         $order = $refundRequest->getOrder();
 
-        $variant = $this->productVariantRepository->findOneBy(['code' => $lineItem->variantCode()]);
-        Assert::notNull($variant);
-
         /** @var ProductInterface $refundProduct */
         $refundProduct = $this->productRepository->findOneBy(['code' => RefundAssigner::REFUND_PRODUCT_CODE]);
-        $refundProductVariant = $this->refundProductCreator->createVariantForProduct($refundProduct);
 
         if (null === $refundProduct) {
            $refundProductVariant = $this->refundProductCreator->createProductWithVariant('Refund', 0, $lineItem->variantCode());
+        }
+        else {
+            $variantCode = $refundProduct->getCode() . '_' . $lineItem->variantCode();
+
+            $variant = $this->productVariantRepository->findOneBy(['code' => $variantCode]);
+
+            if (null !== $variant) {
+                $refundProductVariant = $variant;
+            }
+            else {
+                $refundProductVariant = $this->refundProductCreator->createVariantForProduct($lineItem, $refundProduct);
+            }
         }
 
         /** @var OrderItemInterface $orderItem */
