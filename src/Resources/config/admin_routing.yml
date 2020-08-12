@@ -144,6 +144,11 @@ sylius_refund_admin_refund_request_accept:
                 graph: sylius_refund_refund_request
                 transition: accept
             redirect: referer
+            csrf_protection: false
+            repository:
+                method: findOneById
+                arguments:
+                    id: $refundRequestId
 
 sylius_refund_admin_refund_request_cancel:
     path: /orders/{orderId}/refund-request/{refundRequestId}/cancel
@@ -156,6 +161,11 @@ sylius_refund_admin_refund_request_cancel:
                 graph: sylius_refund_refund_request
                 transition: cancel
             redirect: referer
+            csrf_protection: false
+            repository:
+                method: findOneById
+                arguments:
+                    id: $refundRequestId
 
 sylius_refund_admin_refund_request_send_item:
     path: /orders/{orderId}/refund-request/{refundRequestId}/send-item

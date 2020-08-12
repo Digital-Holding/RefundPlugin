@@ -219,6 +219,7 @@
             <argument type="service" id="sylius.generator.slug" />
             <argument type="service" id="sylius.product_variant_resolver.default" />
             <argument type="service" id="sylius.factory.channel_pricing" />
+            <argument type="service" id="sylius.factory.product_variant" />
         </service>
 
         <service id="sylius_refund.assigner.refund" class="Sylius\RefundPlugin\Assigner\RefundAssigner">

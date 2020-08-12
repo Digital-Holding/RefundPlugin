@@ -11,6 +11,7 @@ use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Product\Factory\ProductFactoryInterface;
+use Sylius\Component\Product\Factory\ProductVariantFactoryInterface;
 use Sylius\Component\Product\Generator\SlugGeneratorInterface;
 use Sylius\Component\Product\Resolver\ProductVariantResolverInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
@@ -37,13 +38,17 @@ final class RefundProductCreator implements RefundProductCreatorInterface
     /** @var FactoryInterface */
     private $channelPricingFactory;
 
+    /** @var ProductVariantFactoryInterface */
+    private $productVariantFactory;
+
     public function __construct(
         ProductFactoryInterface $productFactory,
         ChannelContextInterface $channelContext,
         ProductRepositoryInterface $productRepository,
         SlugGeneratorInterface $slugGenerator,
         ProductVariantResolverInterface $defaultVariantResolver,
-        FactoryInterface $channelPricingFactory
+        FactoryInterface $channelPricingFactory,
+        ProductVariantFactoryInterface $productVariantFactory
     )
     {
         $this->productFactory = $productFactory;
@@ -52,6 +57,7 @@ final class RefundProductCreator implements RefundProductCreatorInterface
         $this->slugGenerator = $slugGenerator;
         $this->defaultVariantResolver = $defaultVariantResolver;
         $this->channelPricingFactory = $channelPricingFactory;
+        $this->productVariantFactory = $productVariantFactory;
     }
 
     public function createProductWithVariant(string $productName, int $price, string $unitCode): ProductVariantInterface
@@ -100,7 +106,7 @@ final class RefundProductCreator implements RefundProductCreatorInterface
         $channel = $this->channelContext->getChannel();
 
         /** @var ProductVariantInterface $productVariant */
-        $productVariant = $this->defaultVariantResolver->getVariant($product);
+        $productVariant = $this->productVariantFactory->createNew();
 
         if (null !== $channel) {
             $productVariant->addChannelPricing($this->createChannelPricingForChannel(0, $channel));
@@ -110,6 +116,9 @@ final class RefundProductCreator implements RefundProductCreatorInterface
 
         $productVariant->setCode($variantCode);
         $productVariant->setName($product->getName());
+        $productVariant->setProduct($product);
+
+        $product->addVariant($productVariant);
 
         $this->productRepository->add($product);
 
