@@ -95,6 +95,7 @@ final class RefundProductCreator implements RefundProductCreatorInterface
 
         $productVariant->setCode($variantCode);
         $productVariant->setName($product->getName());
+        $productVariant->setVisible(false);
 
         $this->productRepository->add($product);
 
@@ -116,6 +117,7 @@ final class RefundProductCreator implements RefundProductCreatorInterface
 
         $productVariant->setCode($variantCode);
         $productVariant->setName($product->getName());
+        $productVariant->setVisible(false);
         $productVariant->setProduct($product);
 
         $product->addVariant($productVariant);
