@@ -3,6 +3,7 @@ sylius_resource:
         sylius_refund.credit_memo:
             classes:
                 model: Sylius\RefundPlugin\Entity\CreditMemo
+                repository: Sylius\RefundPlugin\Doctrine\ORM\CreditMemoRepository
         sylius_refund.line_item:
             classes:
                 model: Sylius\RefundPlugin\Entity\LineItem
@@ -33,13 +34,6 @@ framework:
                 default_middleware: allow_no_handlers
 
 winzou_state_machine:
-    sylius_order:
-        states:
-            fully_refunded: ~
-        transitions:
-            refund:
-                from: [new, fulfilled]
-                to: fully_refunded
     sylius_refund_refund_payment:
         class: Sylius\RefundPlugin\Entity\RefundPayment
         property_path: state
@@ -62,7 +56,7 @@ sylius_grid:
             driver:
                 name: doctrine/orm
                 options:
-                    class: Sylius\RefundPlugin\Entity\CreditMemo
+                    class: "%sylius_refund.model.credit_memo.class%"
             sorting:
                 number: asc
             fields:

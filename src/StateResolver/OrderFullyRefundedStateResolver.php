@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\StateResolver;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use SM\Factory\FactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderPaymentStates;
@@ -47,7 +47,7 @@ final class OrderFullyRefundedStateResolver implements OrderFullyRefundedStateRe
 
         if (
             !$this->orderFullyRefundedTotalChecker->isOrderFullyRefunded($order) ||
-            OrderPaymentStates::STATE_REFUNDED === $order->getState()
+            OrderPaymentStates::STATE_REFUNDED === $order->getPaymentState()
         ) {
             return;
         }

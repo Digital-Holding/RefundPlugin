@@ -6,7 +6,7 @@ namespace Tests\Sylius\RefundPlugin\Behat\Context\Application;
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Tester\Exception\PendingException;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\Persistence\ObjectRepository;
 use Sylius\Component\Addressing\Model\CountryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\RefundPlugin\Entity\CreditMemoInterface;
@@ -68,6 +68,7 @@ final class CreditMemoContext implements Context
 
     /**
      * @Then /^it should contain (\d+) "([^"]+)" product(?:|s) with ("[^"]+") net value, ("[^"]+") tax amount and ("[^"]+") gross value in "([^"]+)" currency$/
+     * @Then /^it should contain (\d+) "([^"]+)" shipment(?:|s) with ("[^"]+") net value, ("[^"]+") tax amount and ("[^"]+") gross value in "([^"]+)" currency$/
      */
     public function itShouldContainProductWithNetValueTaxAmountAndGrossValueInCurrency(
         int $quantity,
@@ -92,30 +93,6 @@ final class CreditMemoContext implements Context
         }
 
         throw new \InvalidArgumentException('There is no item with given data.');
-    }
-
-    /**
-     * @Then /^it should contain (\d+) "([^"]+)" shipment with ("[^"]+") gross value in "([^"]+)" currency$/
-     */
-    public function itShouldContainShipmentWithGrossValueInCurrency(
-        int $quantity,
-        string $shipmentName,
-        int $grossValue,
-        string $currencyCode
-    ): void {
-        $lineItems = $this->creditMemo->getLineItems();
-
-        foreach ($lineItems as $item) {
-            if (
-                $item->name() === $shipmentName &&
-                $item->quantity() === $quantity &&
-                $item->grossValue() === $grossValue
-            ) {
-                return;
-            }
-        }
-
-        throw new \InvalidArgumentException('There is no shipment item with given data.');
     }
 
     /**
@@ -148,6 +125,22 @@ final class CreditMemoContext implements Context
     {
         Assert::same($this->creditMemo->getTotal(), $total);
         Assert::same($this->creditMemo->getCurrencyCode(), $currencyCode);
+    }
+
+    /**
+     * @Then /^its net total should be ("[^"]+")$/
+     */
+    public function itsNetTotalShouldBe(int $total): void
+    {
+        Assert::same($this->creditMemo->getNetValueTotal(), $total);
+    }
+
+    /**
+     * @Then /^its tax total should be ("[^"]+")$/
+     */
+    public function itsTaxTotalShouldBe(int $total): void
+    {
+        Assert::same($this->creditMemo->getTaxTotal(), $total);
     }
 
     /**
