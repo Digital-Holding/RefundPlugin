@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 
-/** @final */
 class CreditMemo implements CreditMemoInterface
 {
     /** @var string */
@@ -144,5 +143,29 @@ class CreditMemo implements CreditMemoInterface
     public function getTo(): ?ShopBillingDataInterface
     {
         return $this->to;
+    }
+
+    public function getNetValueTotal(): int
+    {
+        $sum = 0;
+
+        /** @var LineItemInterface $lineItem */
+        foreach ($this->getLineItems() as $lineItem) {
+            $sum += $lineItem->netValue();
+        }
+
+        return $sum;
+    }
+
+    public function getTaxTotal(): int
+    {
+        $sum = 0;
+
+        /** @var LineItemInterface $lineItem */
+        foreach ($this->getLineItems() as $lineItem) {
+            $sum += $lineItem->taxAmount();
+        }
+
+        return $sum;
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\RefundPlugin\Behat\Context\Ui;
 
 use Behat\Behat\Context\Context;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\Persistence\ObjectRepository;
 use Sylius\Behat\Page\Admin\Order\ShowPageInterface;
 use Sylius\Component\Addressing\Model\CountryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -136,16 +136,18 @@ final class CreditMemoContext implements Context
     }
 
     /**
-     * @Then it should contain :quantity :shipmentName shipment with :grossValue gross value in :currencyCode currency
+     * @Then it should contain :quantity :shipmentName shipment(s) with :netValue net value, :taxAmount tax amount and :grossValue gross value in :currencyCode currency
      */
-    public function itShouldContainShipmentWithGrossValueInCurrency(
+    public function itShouldContainShipmentWithNetValueTaxAmountAndGrossValueInCurrency(
         int $quantity,
         string $shipmentName,
+        string $netValue,
+        string $taxAmount,
         string $grossValue,
         string $currencyCode
     ): void {
         Assert::true(
-            $this->creditMemoDetailsPage->hasShipmentItem($quantity, $shipmentName, $grossValue, $currencyCode)
+            $this->creditMemoDetailsPage->hasItem($quantity, $shipmentName, $netValue, $grossValue, $taxAmount, $currencyCode)
         );
     }
 
@@ -219,6 +221,22 @@ final class CreditMemoContext implements Context
     }
 
     /**
+     * @Then its net total should be :total
+     */
+    public function itsNetTotalShouldBe(string $total): void
+    {
+        Assert::same($this->creditMemoDetailsPage->getNetTotal(), $total);
+    }
+
+    /**
+     * @Then its tax total should be :total
+     */
+    public function itsTaxTotalShouldBe(string $total): void
+    {
+        Assert::same($this->creditMemoDetailsPage->getTaxTotal(), $total);
+    }
+
+    /**
      * @Then it should be commented with :comment
      */
     public function itShouldBeCommentedWith(string $comment): void
@@ -284,5 +302,13 @@ final class CreditMemoContext implements Context
     public function pdfFileShouldBeSuccessfullyDownloaded(): void
     {
         Assert::true($this->pdfDownloadElement->isPdfFileDownloaded());
+    }
+
+    /**
+     * @Then /^I should see the credit memo with "([^"]+)" total as (\d+)(?:|st|nd|rd|th) in the list$/
+     */
+    public function iShouldCreditMemoOrderByAscInTheList(string $creditMemoTotal, int $position): void
+    {
+        Assert::true($this->creditMemoDetailsPage->isCreditMemoInPosition($creditMemoTotal, $position));
     }
 }

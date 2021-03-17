@@ -15,8 +15,6 @@ doctrine:
     orm:
         mappings:
             App:
-                is_bundle: false
                 type: annotation
                 dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'Tests\Sylius\RefundPlugin\Application\src\Entity'
-                alias: App
+                prefix: Tests\Sylius\RefundPlugin\Application

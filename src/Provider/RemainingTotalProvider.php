@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\Provider;
 
-use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderItemUnitInterface;
+use Sylius\Component\Order\Model\AdjustableInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\RefundPlugin\Entity\AdjustmentInterface;
 use Sylius\RefundPlugin\Entity\RefundInterface;
 use Sylius\RefundPlugin\Model\RefundType;
 use Webmozart\Assert\Assert;
@@ -60,13 +61,17 @@ final class RemainingTotalProvider implements RemainingTotalProviderInterface
             return $orderItemUnit->getTotal();
         }
 
-        /** @var AdjustmentInterface $shipment */
-        $shipment = $this->adjustmentRepository->findOneBy([
+        /** @var AdjustmentInterface $shippingAdjustment */
+        $shippingAdjustment = $this->adjustmentRepository->findOneBy([
             'id' => $id,
             'type' => AdjustmentInterface::SHIPPING_ADJUSTMENT,
         ]);
-        Assert::notNull($shipment);
+        Assert::notNull($shippingAdjustment);
 
-        return $shipment->getAmount();
+        $shipment = $shippingAdjustment->getShipment();
+        Assert::notNull($shipment);
+        Assert::isInstanceOf($shipment, AdjustableInterface::class);
+
+        return $shipment->getAdjustmentsTotal();
     }
 }
