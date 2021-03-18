@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\Service;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Gaufrette\Filesystem;
-use Sylius\RefundPlugin\Entity\RefundRequestMessage;
 use Sylius\RefundPlugin\Entity\RefundRequestMessageFile;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
