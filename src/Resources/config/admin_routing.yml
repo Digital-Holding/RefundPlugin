@@ -78,7 +78,7 @@ sylius_refund_application_reason:
     resource: |
         alias: sylius_refund.application_reason
         section: admin
-        templates: SyliusAdminBundle:Crud
+        templates: "@SyliusAdmin\\Crud"
         except: ['show']
         redirect: index
         grid: sylius_refund_application_reason
@@ -96,7 +96,7 @@ sylius_refund_refund_request:
     resource: |
         alias: sylius_refund.refund_request
         section: admin
-        templates: SyliusAdminBundle:Crud
+        templates: "@SyliusAdmin\\Crud"
         only: ['index']
         grid: sylius_refund_refund_request
         permission: true
