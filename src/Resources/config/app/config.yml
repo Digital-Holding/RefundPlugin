@@ -286,3 +286,18 @@ doctrine:
     dbal:
         types:
             sylius_refund_refund_type: Sylius\RefundPlugin\Entity\Type\RefundEnumType
+
+knp_gaufrette:
+    adapters:
+        uploads_sylius_refund:
+            local:
+                directory: ../var/uploads/sylius_refund/
+
+    filesystems:
+        sylius_refund_plugin_media:
+            adapter: uploads_sylius_refund
+
+    stream_wrapper:
+        protocol: data
+        filesystems:
+            - sylius_refund_plugin_media
