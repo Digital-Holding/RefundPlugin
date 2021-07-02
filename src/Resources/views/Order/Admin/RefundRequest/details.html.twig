@@ -62,7 +62,17 @@
                                         <div class="ui small message">
                                             <p>{{ request_message.message }}</p><br>
                                         </div>
-                                        <p>{{ request_message.datetime|date("m/d/Y h:i:s") }}</p>
+                                        <div class="files">
+                                            {% for file in request_message.refundRequestMessageFiles %}
+                                                <div class="file-info">
+                                                    <div class="file-name">{{ file.fileName }}</div>
+                                                    <i class="file icon"></i>
+                                                    <a class="ui blue labeled icon button delete-btn"
+                                                       href="{{ path('sylius_refund_admin_refund_request_get', { hash: file.hash, filename: file.fileName }) }}"><i
+                                                                class="download icon"></i> {{ 'sylius.ui.download'|trans }}</a>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
                                     </div>
                                 </div>
 
@@ -76,6 +86,18 @@
                                             <p>{{ request_message.message }}</p><br>
                                         </div>
                                         <p>{{ request_message.datetime|date("m/d/Y h:i:s") }}</p>
+
+                                        <div class="files">
+                                            {% for file in request_message.refundRequestMessageFiles %}
+                                                <div class="file-info">
+                                                    <div class="file-name">{{ file.fileName }}</div>
+                                                    <i class="file icon"></i>
+                                                    <a class="ui blue labeled icon button delete-btn"
+                                                       href="{{ path('sylius_refund_admin_refund_request_get', { hash: file.hash, filename: file.fileName }) }}"><i
+                                                                class="download icon"></i> {{ 'sylius.ui.download'|trans }}</a>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
                                     </div>
                                 </div>
                             {% endif %}
@@ -125,7 +147,7 @@
                             </form>
                         </div>
                         <div class="column">
-                                        {% elseif refund_request.state == 'accepted' %}
+                            {% elseif refund_request.state == 'accepted' %}
                             <form action="{{ path('sylius_refund_admin_refund_request_send_item', {'orderId': refund_request.order.id, 'refundRequestId': refund_request.id}) }}"
                                   method="post">
                                 <input type="hidden" name="_method" value="PUT"/>
@@ -135,7 +157,7 @@
                                 </button>
                             </form>
                         </div>
-                                    {% elseif refund_request.state == 'pending_item_return' %}
+                        {% elseif refund_request.state == 'pending_item_return' %}
                         <form action="{{ path('sylius_refund_admin_refund_request_receive_package', {'orderId': refund_request.order.id, 'refundRequestId': refund_request.id}) }}"
                               method="post">
                             <input type="hidden" name="_method" value="PUT"/>
@@ -145,7 +167,7 @@
                             </button>
                         </form>
                         <div class="column">
-                                        {% elseif refund_request.state == 'accepted' or refund_request.state == 'package_received' %}
+                            {% elseif refund_request.state == 'accepted' or refund_request.state == 'package_received' %}
                             <form action="{{ path('sylius_refund_admin_refund_request_complete', {'orderId': refund_request.order.id, 'refundRequestId': refund_request.id}) }}"
                                   method="post">
                                 <input type="hidden" name="_method" value="PUT"/>
@@ -161,4 +183,40 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        .file-info {
+            border: 1px solid black;
+            border-radius: 5px;
+            margin: 5px 5px;
+            padding: 16px;
+            min-width: 200px;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .file-info .file-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+
+        .file-info .file {
+            font-size: 4rem;
+            line-height: 4rem;
+            margin: 10px;
+            text-align: center;
+            width: calc(100% - 20px);
+        }
+
+        .file-info .delete-btn {
+            width: 100%;
+        }
+    </style>
 {% endblock %}

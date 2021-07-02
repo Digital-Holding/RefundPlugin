@@ -23,6 +23,16 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 final class RefundRequestController extends ResourceController
 {
+    public function downloadRefundRequestMessageFile(Request $request): Response
+    {
+        $hash = $request->attributes->get('hash');
+        $refundRequestMessageFileService = $this->get('sylius_refund_plugin.service.refund_request_message_file_service');
+
+        $fileResponse = $refundRequestMessageFileService->getFileAsResponse($hash);
+
+        return $fileResponse;
+    }
+
     public function addRefundRequestMessage(Request $request, string $orderId, string $refundRequestId): Response
     {
         /** @var RepositoryInterface $refundRequestRepository */
